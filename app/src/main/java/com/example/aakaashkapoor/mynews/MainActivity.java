@@ -2,9 +2,11 @@ package com.example.aakaashkapoor.mynews;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -14,9 +16,18 @@ public class MainActivity extends AppCompatActivity {
 
     // variable declaration
     GridView newsChannels;
+    public static TextView title;
+    public static TextView articles;
 
     // Declaration of the images and thier names
     String[] channelNames = {
+            "BBC",
+            "CNBC",
+            "Conservative Tribune",
+            "CNN",
+            "Fox News",
+            "MSNBC",
+            "New York Times",
             "BBC",
             "CNBC",
             "Conservative Tribune",
@@ -33,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.cnn,
             R.drawable.foxnews,
             R.drawable.msnbc,
+            R.drawable.newyorktimes,
+            R.drawable.bbc,
+            R.drawable.cnbc,
+            R.drawable.ct,
+            R.drawable.cnn,
+            R.drawable.foxnews,
+            R.drawable.msnbc,
             R.drawable.newyorktimes
     };
 
@@ -40,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        title = (TextView) findViewById(R.id.textView2) ;
+        final GridView gridView = (GridView) findViewById(R.id.channelsView) ;
 
         User user = new User(this); // for checking the user
 
@@ -57,6 +78,12 @@ public class MainActivity extends AppCompatActivity {
                                     int position, long id) {
                 Toast.makeText(getApplicationContext(), channelNames[position],
                         Toast.LENGTH_SHORT).show();
+
+                getJsonData jsonData = new getJsonData();
+                jsonData.execute();
+
+                gridView.setVisibility(View.INVISIBLE);
+
             }});
 
     }
