@@ -1,10 +1,12 @@
 package com.example.aakaashkapoor.mynews;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,16 +14,13 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
-    // variable declaration
-    GridView newsChannels;
-    public static TextView title;
-    public static TextView articles;
-
     // Declaration of the images and thier names
-    String[] channelNames = {
-            "BBC",
+    String[] channelNames = {"BBC",
             "CNBC",
             "Conservative Tribune",
             "CNN",
@@ -54,13 +53,21 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.newyorktimes
     };
 
+    // variable declaration
+    GridView newsChannels;
+    GridView newsArticles;
+    public static TextView title;
+    //public static TextView articles;
+
+
+    public static final String MainMessage = "Cardi B";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         title = (TextView) findViewById(R.id.textView2) ;
-        final GridView gridView = (GridView) findViewById(R.id.channelsView) ;
 
         User user = new User(this); // for checking the user
 
@@ -68,22 +75,29 @@ public class MainActivity extends AppCompatActivity {
             createUserInDatabase(user.username);
 
         // variable instantiation
+        final GridView gridView = (GridView) findViewById(R.id.channelsView) ;
         newsChannels = (GridView) findViewById(R.id.channelsView);
         ChannelsGridAdapter gridAdapter = new ChannelsGridAdapter(this, channelNames, channelImages);
-
         newsChannels.setAdapter(gridAdapter);
 
+//These ARE REDUNDANT BUT FOR SOME REASON THE CODE DOESNT RUN WITHOUT THEM
+        ArrayList<String> articleNames = new ArrayList<String>();
+        ArrayList<String> articleImages = new ArrayList<String>();
+        final GridView articleView = (GridView)findViewById(R.id.articleView);
+        newsArticles = (GridView) findViewById(R.id.articleView);
+        ArticlesGridAdapter articleAdapter = new ArticlesGridAdapter(this, articleNames, articleImages);//, articleNames);
+        newsArticles.setAdapter(articleAdapter);
+        articleView.setAdapter(articleAdapter);
+        articleView.setVisibility(View.INVISIBLE);
+//TILL HERE
+
         newsChannels.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View image,
-                                    int position, long id) {
-                Toast.makeText(getApplicationContext(), channelNames[position],
-                        Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> parent, View image, int position, long id) {
 
-                getJsonData jsonData = new getJsonData();
-                jsonData.execute();
+                Toast.makeText(getApplicationContext(), channelNames[position], Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), ArticleChoiceActivity.class);
 
-                gridView.setVisibility(View.INVISIBLE);
-
+                startActivity(intent);
             }});
 
     }
@@ -93,4 +107,6 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.push().setValue(user);
     }
+
+
 }

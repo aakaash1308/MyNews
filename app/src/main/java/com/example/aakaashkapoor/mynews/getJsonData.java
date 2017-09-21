@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by aakaashkapoor on 9/5/17.
@@ -23,6 +24,7 @@ import java.net.URL;
 public class getJsonData extends AsyncTask<Void,Void,Void> {
     String jsonData = "";
     JSONObject jsonObject;
+
     @Override
     protected Void doInBackground(Void... voids) {
         try {
@@ -57,8 +59,10 @@ public class getJsonData extends AsyncTask<Void,Void,Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        //MainActivity.title.setText(jsonData);
-
+        
+        MainActivity.title.setText(jsonData);
+        //MainActivity.articleNames.add();
+        
         JSONArray jsonArray = null;
         try {
             jsonArray = jsonObject.getJSONArray("articles");
@@ -72,10 +76,14 @@ public class getJsonData extends AsyncTask<Void,Void,Void> {
         {
             try {
                 JSONObject array = new JSONObject(jsonArray.get(i).toString());
-                Log.i("json", array.toString());
-                MainActivity.title.append(array.get("title").toString());
-                MainActivity.title.append("\n\n");
+                //Log.i("json", String.valueOf(array));
+                //MainActivity.title.append(array.get("title").toString());
+                //MainActivity.title.append("\n\n");
 
+
+                ArticleChoiceActivity.articleImages.add(array.get("urlToImage").toString());
+                ArticleChoiceActivity.articleNames.add(array.get("title").toString());
+                ArticleChoiceActivity.articleURL.add(array.get("url").toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
