@@ -33,7 +33,7 @@ public class getJsonData extends AsyncTask<Void,Void,Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         try {
-            Log.i("I am currently here", " yes");
+            //Log.i("I am currently here", " yes");
             URL url = new URL(URLs[0]);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-ID","15c136e0" );
@@ -69,36 +69,43 @@ public class getJsonData extends AsyncTask<Void,Void,Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
-        Log.i("news", jsonData);
+        //Log.i("news", jsonObject.toString());
 //        MainActivity.title.setText(jsonData);
 //        //MainActivity.articleNames.add();
 //
-//        JSONArray jsonArray = null;
-//        try {
-//            jsonArray = jsonObject.getJSONArray("articles");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+        JSONArray jsonArray = null, mediaArray = null;
+        try {
+            jsonArray = jsonObject.getJSONArray("stories");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 //
 //
-//        int i = 0;
-//        while(i < jsonArray.length())
-//        {
-//            try {
-//                JSONObject array = new JSONObject(jsonArray.get(i).toString());
-//                //Log.i("json", String.valueOf(array));
-//                //MainActivity.title.append(array.get("title").toString());
-//                //MainActivity.title.append("\n\n");
+        int i = 0;
+        while(i < jsonArray.length() && i < 6)
+        {
+            try {
+                JSONObject array = new JSONObject(jsonArray.get(i).toString());
+                ArticleChoiceActivity.articleNames.add(array.get("title").toString());
+                ArticleChoiceActivity.articleBody.add(array.get("body").toString());
+
+                JSONObject author = (JSONObject) array.get("author");
+                ArticleChoiceActivity.articleAuthor.add(author.get("name").toString());
+
+                JSONArray media = (JSONArray) array.get("media");
+                JSONObject medias = (JSONObject) media.get(0);
+
+                ArticleChoiceActivity.articleImages.add((String) medias.get("url"));
+
+//                Log.i("article names: ", array.get("title").toString());
+//                Log.i("news", (String) medias.get("url"));
+          } catch (JSONException e) {
+                e.printStackTrace();
+            }
 //
-//
-//                ArticleChoiceActivity.articleImages.add(array.get("urlToImage").toString());
-//                ArticleChoiceActivity.articleNames.add(array.get("title").toString());
-//                ArticleChoiceActivity.articleURL.add(array.get("url").toString());
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//
-//            i++;
-//        }
+            i++;
+        }
+        Log.i("article names: ", "GOT ALL 6 BABY!!!");
     }
 }

@@ -7,6 +7,9 @@ package com.example.aakaashkapoor.mynews;
 
 import android.content.Context;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
         import android.view.ViewGroup;
@@ -14,7 +17,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+
+import static com.example.aakaashkapoor.mynews.R.id.imageView;
 
 public class ArticlesGridAdapter extends BaseAdapter {
 
@@ -47,6 +58,8 @@ public class ArticlesGridAdapter extends BaseAdapter {
         return null;
     }
 
+
+
     // 5
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -62,9 +75,19 @@ public class ArticlesGridAdapter extends BaseAdapter {
 
         final ImageView articleImageView = (ImageView)convertView.findViewById(R.id.article_cover_art);
         String url = articleImages.get(position);
+        Log.i("URRRRLRLLRLRLLRLRLRLL", articleNames.get(position));
+        Log.i("URRRRLRLLRLRLLRLRLRLL", articleImages.get(position));
+
         articleImageView.setImageResource(R.drawable.bbc);
-
-
+        Picasso.with(this.mContext).load(articleImages.get(position)).into(articleImageView);
+        //try {
+        //    Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(articleImages.get(position)).getContent());
+        //    articleImageView.setImageBitmap(bitmap);
+        //} catch (MalformedURLException e) {
+        //    e.printStackTrace();
+        //} catch (IOException e) {
+        //    e.printStackTrace();
+        //}
 
         return convertView;
     }

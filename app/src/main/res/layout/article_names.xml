@@ -5,7 +5,6 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:padding="10dp"
     >
 
@@ -13,14 +12,15 @@
         <ImageView
         android:id = "@+id/article_cover_art"
         android:layout_width="80dp"
-        android:layout_height="80dp" />
+        android:layout_height="80dp"
+       android:layout_gravity="left"     />
 
 
     <TextView
         android:id="@+id/article_headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
+        android:textSize="16sp"
         tools:text="Are You My Mother"
         android:textStyle="bold"
         android:paddingTop="4dp"

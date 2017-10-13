@@ -3,9 +3,13 @@ package com.example.aakaashkapoor.mynews;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class ChosenArticle extends AppCompatActivity {
 
@@ -15,14 +19,29 @@ public class ChosenArticle extends AppCompatActivity {
         setContentView(R.layout.activity_chosen_article);
 
         Intent intent = getIntent();
-        String destination = "";
-        destination = intent.getStringExtra(String.valueOf(ArticleChoiceActivity.messanger));
+        String destinationHeadline = "";
+        String destinationAuthor = "";
+        String destinationBody = "";
+        String destinationUrl= "";
+        destinationHeadline = intent.getStringExtra(String.valueOf(ArticleChoiceActivity.headline));
+        destinationBody = intent.getStringExtra(String.valueOf(ArticleChoiceActivity.body));
+        destinationAuthor = intent.getStringExtra(String.valueOf(ArticleChoiceActivity.author));
+        destinationUrl = intent.getStringExtra(String.valueOf(ArticleChoiceActivity.url));
 
-        TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText(destination);
+        TextView textView = (TextView) findViewById(R.id.headline);
+        textView.setText(destinationHeadline);
 
-        WebView webview = new WebView(this);
-        setContentView(webview);
-        webview.loadUrl(destination);
+        textView = (TextView) findViewById(R.id.author);
+        textView.setText(destinationAuthor);
+
+        textView = (TextView) findViewById(R.id.body);
+        textView.setText(destinationBody);
+        textView.setMovementMethod(new ScrollingMovementMethod());
+
+        ImageView articleImageView = (ImageView)findViewById(R.id.imageView);
+        Picasso.with(this).load(destinationUrl).into(articleImageView);
+        //WebView webview = new WebView(this);
+        //setContentView(webview);
+        //webview.loadUrl(destination);
     }
 }

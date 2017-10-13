@@ -18,8 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-    // Declaration of the images and thier names
     String[] channelNames = {"BBC",
             "CNBC",
             "Conservative Tribune",
@@ -31,9 +29,7 @@ public class MainActivity extends AppCompatActivity {
             "CNBC",
             "Conservative Tribune",
             "CNN",
-            "Fox News",
-            "MSNBC",
-            "New York Times"
+            "Fox News"
     };
 
     int[] channelImages = {
@@ -48,9 +44,7 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.cnbc,
             R.drawable.ct,
             R.drawable.cnn,
-            R.drawable.foxnews,
-            R.drawable.msnbc,
-            R.drawable.newyorktimes
+            R.drawable.foxnews
     };
 
     // variable declaration
@@ -74,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         if(user.checkFirstTime())
             createUserInDatabase(user.username);
 
+
         // variable instantiation
         final GridView gridView = (GridView) findViewById(R.id.channelsView) ;
         newsChannels = (GridView) findViewById(R.id.channelsView);
@@ -81,14 +76,14 @@ public class MainActivity extends AppCompatActivity {
         newsChannels.setAdapter(gridAdapter);
 
 //These ARE REDUNDANT BUT FOR SOME REASON THE CODE DOESNT RUN WITHOUT THEM
-        ArrayList<String> articleNames = new ArrayList<String>();
-        ArrayList<String> articleImages = new ArrayList<String>();
-        final GridView articleView = (GridView)findViewById(R.id.articleView);
-        newsArticles = (GridView) findViewById(R.id.articleView);
-        ArticlesGridAdapter articleAdapter = new ArticlesGridAdapter(this, articleNames, articleImages);//, articleNames);
-        newsArticles.setAdapter(articleAdapter);
-        articleView.setAdapter(articleAdapter);
-        articleView.setVisibility(View.INVISIBLE);
+//        ArrayList<String> articleNames = new ArrayList<String>();
+//        ArrayList<String> articleImages = new ArrayList<String>();
+//        final GridView articleView = (GridView)findViewById(R.id.articleView);
+//        newsArticles = (GridView) findViewById(R.id.articleView);
+//        ArticlesGridAdapter articleAdapter = new ArticlesGridAdapter(this, articleNames, articleImages);//, articleNames);
+//        newsArticles.setAdapter(articleAdapter);
+//        articleView.setAdapter(articleAdapter);
+//        articleView.setVisibility(View.INVISIBLE);
 //TILL HERE
 
         newsChannels.setOnItemClickListener(new AdapterView.OnItemClickListener() {

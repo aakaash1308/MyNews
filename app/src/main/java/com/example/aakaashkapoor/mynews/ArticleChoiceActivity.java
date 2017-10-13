@@ -16,11 +16,13 @@ public class ArticleChoiceActivity extends AppCompatActivity {
 
     //GridView newsArticles;
 
+    public static ArrayList<String> articleAuthor= new ArrayList<String>();
     public static ArrayList<String> articleNames = new ArrayList<String>();
+    public static ArrayList<String> articleBody = new ArrayList<String>();
     public static ArrayList<String> articleImages = new ArrayList<String>();
     public static ArrayList<String> articleURL = new ArrayList<String>();
 
-    public static String messanger;
+    public static String headline, body, author,url ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,7 @@ public class ArticleChoiceActivity extends AppCompatActivity {
 
         GridView articleView = (GridView)findViewById(R.id.articleView);
         GridView newsArticles = (GridView) findViewById(R.id.articleView);
+        Log.i("number of articles here: ", String.valueOf(articleNames.size()));
         ArticlesGridAdapter articleAdapter = new ArticlesGridAdapter(this, articleNames, articleImages);//, articleNames);
         newsArticles.setAdapter(articleAdapter);
 
@@ -49,8 +52,15 @@ public class ArticleChoiceActivity extends AppCompatActivity {
 
                 //Log.i("String", articleURL.get(position));
                 Intent intent = new Intent(getApplicationContext(), ChosenArticle.class);
-                messanger =  articleURL.get(position);//editText.getText().toString();
-                intent.putExtra( messanger, messanger);
+                headline =  articleNames.get(position);//editText.getText().toString();
+                intent.putExtra( headline, headline);
+                body =  articleBody.get(position);//editText.getText().toString();
+                intent.putExtra( body, body);
+                author =  articleAuthor.get(position);//editText.getText().toString();
+                intent.putExtra( author, author);
+                url =  articleImages.get(position);//editText.getText().toString();
+                intent.putExtra(url,url);
+
                 startActivity(intent);
                 //startActivity(intent);
             }});
