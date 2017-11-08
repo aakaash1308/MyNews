@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     GridView newsChannels;
     GridView newsArticles;
     public static TextView title;
+    static String sourceName;
     //public static TextView articles;
 
 
@@ -75,22 +76,16 @@ public class MainActivity extends AppCompatActivity {
         ChannelsGridAdapter gridAdapter = new ChannelsGridAdapter(this, channelNames, channelImages);
         newsChannels.setAdapter(gridAdapter);
 
-//These ARE REDUNDANT BUT FOR SOME REASON THE CODE DOESNT RUN WITHOUT THEM
-//        ArrayList<String> articleNames = new ArrayList<String>();
-//        ArrayList<String> articleImages = new ArrayList<String>();
-//        final GridView articleView = (GridView)findViewById(R.id.articleView);
-//        newsArticles = (GridView) findViewById(R.id.articleView);
-//        ArticlesGridAdapter articleAdapter = new ArticlesGridAdapter(this, articleNames, articleImages);//, articleNames);
-//        newsArticles.setAdapter(articleAdapter);
-//        articleView.setAdapter(articleAdapter);
-//        articleView.setVisibility(View.INVISIBLE);
-//TILL HERE
 
         newsChannels.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View image, int position, long id) {
 
                 Toast.makeText(getApplicationContext(), channelNames[position], Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(getApplicationContext(), ArticleChoiceActivity.class);
+
+                sourceName = channelNames[position];
+                intent.putExtra(sourceName,sourceName);
 
                 startActivity(intent);
             }});

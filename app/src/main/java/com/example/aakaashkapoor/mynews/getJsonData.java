@@ -36,8 +36,8 @@ public class getJsonData extends AsyncTask<Void,Void,Void> {
             //Log.i("I am currently here", " yes");
             URL url = new URL(URLs[0]);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-ID","15c136e0" );
-            httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-Key", "15c7da7bb8d73f21f0af9bf5ef6d2539");
+            httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-ID","3d310ba9" );
+            httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-Key", "75cf60699089f731f0d0f94f44746195");
             InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             StringBuilder responseStrBuilder = new StringBuilder();
@@ -46,7 +46,7 @@ public class getJsonData extends AsyncTask<Void,Void,Void> {
                 responseStrBuilder.append(inputStr);
 
             jsonObject = new JSONObject(responseStrBuilder.toString());
-            //Log.i("news", jsonObject.toString());
+            Log.i("news", jsonObject.toString());
 
 //            String line = "";
 //
@@ -75,6 +75,7 @@ public class getJsonData extends AsyncTask<Void,Void,Void> {
 //
         JSONArray jsonArray = null, mediaArray = null;
         try {
+            Log.i("news", jsonObject.toString());
             jsonArray = jsonObject.getJSONArray("stories");
 
         } catch (JSONException e) {
