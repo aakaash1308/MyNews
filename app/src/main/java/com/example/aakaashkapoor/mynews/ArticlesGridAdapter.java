@@ -78,16 +78,8 @@ public class ArticlesGridAdapter extends BaseAdapter {
         Log.i("URRRRLRLLRLRLLRLRLRLL", articleNames.get(position));
         Log.i("URRRRLRLLRLRLLRLRLRLL", articleImages.get(position));
 
-        articleImageView.setImageResource(R.drawable.bbc);
+        articleImageView.setImageResource(R.drawable.cnn);
         Picasso.with(this.mContext).load(articleImages.get(position)).into(articleImageView);
-        //try {
-        //    Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(articleImages.get(position)).getContent());
-        //    articleImageView.setImageBitmap(bitmap);
-        //} catch (MalformedURLException e) {
-        //    e.printStackTrace();
-        //} catch (IOException e) {
-        //    e.printStackTrace();
-        //}
 
         return convertView;
     }

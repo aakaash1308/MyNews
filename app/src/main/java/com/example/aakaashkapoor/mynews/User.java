@@ -16,24 +16,28 @@ import android.widget.Toast;
 public class User{
 
     String username; // stores the one time username to differentiate the user from the others
+    int howLiberal;
     private int firstTime = 0; // checks if this is the first time the app is opened
+    Context mContext;
 
     public User(String username) {
         this.username = username;
     }
 
     public User(Context mContext) {
-
+        this.mContext = mContext;
         SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
         String username = prefs.getString("username1", "this is the first time."); // username will be set to the second argument if it doesn't exist
+        this.howLiberal = prefs.getInt("howLiberal", 50); // username will be set to the second argument if it doesn't exist
 
         if(username.equals("this is the first time.")) // check for the first time and create a random username
         {
+            SharedPreferences.Editor editor = prefs.edit();
+
             username = Long.toHexString(Double.doubleToLongBits(Math.random()));
             firstTime = 1; // for telling the app that this is the first time
 
             // saving in the phone
-            SharedPreferences.Editor editor = prefs.edit();
             editor.putString("username1", username);
             editor.commit();
         }
@@ -44,9 +48,19 @@ public class User{
     public String getUsername() {
         return username;
     }
+    public int gethowLiberal(){ return howLiberal;}
 
     public void setUsername(String username) {
         this.username = username;
+    }
+    public void setHowLiberal(int howLiberal) {
+
+        SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("howLiberal", howLiberal);
+        this.howLiberal = howLiberal;
+        editor.commit();
+
     }
 
     public boolean checkFirstTime() {

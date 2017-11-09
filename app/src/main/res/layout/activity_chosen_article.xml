@@ -69,7 +69,7 @@
         android:id="@+id/imageView"
         android:layout_width="406dp"
         android:layout_height="207dp"
-        app:srcCompat="@drawable/bbc"
+        app:srcCompat="@drawable/cnn"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"

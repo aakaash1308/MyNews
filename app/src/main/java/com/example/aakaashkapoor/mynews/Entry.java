@@ -10,46 +10,46 @@ package com.example.aakaashkapoor.mynews;
 
 public class Entry {
 
-    String Username;
-    String TimeStamp;
-    Integer SourceNumber;
-    Integer Type;
+    String username;//YOLO BIATCH
+    String timeStamp;
+    Integer sourceNumber;
+    Integer type;
     public Entry(String username, String timeStamp, Integer sourceNumber, Integer type) {
-        Username = username;
-        TimeStamp = timeStamp;
-        SourceNumber = sourceNumber;
-        Type = type;
+        this.username = username;
+        this.timeStamp = timeStamp;
+        this.sourceNumber = sourceNumber;
+        this.type = type;
     }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
     public void setUsername(String username) {
-        Username = username;
+        this.username = username;
     }
 
     public String getTimeStamp() {
-        return TimeStamp;
+        return timeStamp;
     }
 
     public void setTimeStamp(String timeStamp) {
-        TimeStamp = timeStamp;
+        this.timeStamp = timeStamp;
     }
 
     public Integer getSourceNumber() {
-        return SourceNumber;
+        return sourceNumber;
     }
 
     public void setSourceNumber(Integer sourceNumber) {
-        SourceNumber = sourceNumber;
+        this.sourceNumber = sourceNumber;
     }
 
     public Integer getType() {
-        return Type;
+        return type;
     }
 
     public void setType(Integer type) {
-        Type = type;
+        this.type = type;
     }
 }

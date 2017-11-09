@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,31 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    String[] channelNames = {"BBC",
-            "CNBC",
-            "Conservative Tribune",
-            "CNN",
-            "Fox News",
-            "MSNBC",
-            "New York Times",
+    String[] channelNames = {
             "BBC",
-            "CNBC",
-            "Conservative Tribune",
-            "CNN",
-            "Fox News"
+            "CNBC"
+
     };
 
     int[] channelImages = {
-            R.drawable.bbc,
-            R.drawable.cnbc,
-            R.drawable.ct,
-            R.drawable.cnn,
-            R.drawable.foxnews,
-            R.drawable.msnbc,
-            R.drawable.newyorktimes,
-            R.drawable.bbc,
-            R.drawable.cnbc,
-            R.drawable.ct,
+
             R.drawable.cnn,
             R.drawable.foxnews
     };
@@ -73,20 +57,18 @@ public class MainActivity extends AppCompatActivity {
         // variable instantiation
         final GridView gridView = (GridView) findViewById(R.id.channelsView) ;
         newsChannels = (GridView) findViewById(R.id.channelsView);
-        ChannelsGridAdapter gridAdapter = new ChannelsGridAdapter(this, channelNames, channelImages);
+        ChannelsGridAdapter gridAdapter = new ChannelsGridAdapter(this);
         newsChannels.setAdapter(gridAdapter);
 
 
         newsChannels.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View image, int position, long id) {
 
-                Toast.makeText(getApplicationContext(), channelNames[position], Toast.LENGTH_SHORT).show();
-
+                ImageView myimage = (ImageView) image.findViewById(R.id.imageview);
+                Toast.makeText(getApplicationContext(),myimage.getTag().toString() , Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), ArticleChoiceActivity.class);
-
-                sourceName = channelNames[position];
+                sourceName = myimage.getTag().toString();
                 intent.putExtra(sourceName,sourceName);
-
                 startActivity(intent);
             }});
 

@@ -35,8 +35,7 @@ public class ArticleChoiceActivity extends AppCompatActivity {
         //textView.setText(message);
 
         getJsonData jsonData = new getJsonData();
-        jsonData.execute();
-
+        jsonData.execute(sourceName);
 
         GridView articleView = (GridView)findViewById(R.id.articleView);
         GridView newsArticles = (GridView) findViewById(R.id.articleView);
@@ -64,7 +63,6 @@ public class ArticleChoiceActivity extends AppCompatActivity {
                 intent.putExtra(url,url);
 
                 startActivity(intent);
-                //startActivity(intent);
             }});
 
 
