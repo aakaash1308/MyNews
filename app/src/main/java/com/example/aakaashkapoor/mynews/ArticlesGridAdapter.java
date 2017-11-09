@@ -74,7 +74,7 @@ public class ArticlesGridAdapter extends BaseAdapter {
         //-- nameTextView.setText(articleNames.get(position));
 
         final ImageView articleImageView = (ImageView)convertView.findViewById(R.id.article_cover_art);
-        String url = articleImages.get(position);
+
         Log.i("URRRRLRLLRLRLLRLRLRLL", articleNames.get(position));
         Log.i("URRRRLRLLRLRLLRLRLRLL", articleImages.get(position));
 

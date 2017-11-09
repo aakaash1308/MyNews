@@ -86,12 +86,14 @@ public class ChannelsGridAdapter extends BaseAdapter {
         if(isLiberal()){
             currentImage = liberal_images.getResourceId(display.get(position),-1);
             currentName = liberal_names.getString(display.get(position));
-
+            currentName = currentName + "1";
+            //1 is for liberal
         }
         else{
 
             currentImage = conservative_images.getResourceId(display.get(position),-1);
             currentName = conservative_names.getString(display.get(position));
+            currentName = currentName + "0";
         }
 
         if(convertView == null) {

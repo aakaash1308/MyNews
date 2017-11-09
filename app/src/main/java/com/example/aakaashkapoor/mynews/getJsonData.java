@@ -69,6 +69,10 @@ public class getJsonData extends AsyncTask<String,Void,Void> {
         }
 
         int i = 0;
+        ArticleChoiceActivity.articleNames.clear();
+        ArticleChoiceActivity.articleBody.clear();
+        ArticleChoiceActivity.articleAuthor.clear();
+        ArticleChoiceActivity.articleImages.clear();
         while(i < jsonArray.length() && i < 6)
         {
             try {
