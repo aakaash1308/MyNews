@@ -4,79 +4,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
     tools:context="com.example.aakaashkapoor.mynews.ChosenArticle">
 
-    <TextView
-        android:id="@+id/body"
-        android:layout_width="311dp"
-        android:layout_height="289dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:fontFamily="monospace"
-        android:scrollbars="vertical"
-        android:text=" 10-13 00:01:17.599 16605-16672/com.example.aakaashkapoor.mynews W/GooglePlayServicesUtil: Google Play services out of date.  Requires 10084000 but found 9452470 10-13 00:01:17.599 16605-16672/com.example.aakaashkapoor.mynews V/FA: Using measurement service 10-13 00:01:17.600 16605-16672/com.example.aakaashkapoor.mynews V/FA: Connection attempt already in progress 10-13 00:01:17.600 16605-16672/com.example.aakaashkapoor.mynews V/FA: Activity resumed, time: 5226865 10-13 00:01:17.646 16605-16605/com.example.aakaashkapoor.mynews W/FA: Service connection failed: ConnectionResult{statusCode=SERVICE_VERSION_UPDATE_REQUIRED, resolution=null, message=null} 10-13 00:01:17.703 16605-16730/com.example.aakaashkapoor.mynews E/Surface: getSlotFromBufferLocked: unknown buffer: 0xa9fec720 10-13 00:02:17.652 16605-17903/com.example.aakaashkapoor.mynews W/FA: Tasks have been queued for a long time "
-        android:textAlignment="viewStart"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/author"
-        app:layout_constraintVertical_bias="0.686"
-        app:layout_constraintHorizontal_bias="0.52"
-        tools:layout_editor_absoluteY="397dp"
-        tools:layout_editor_absoluteX="53dp" />
+        <TextView
+            android:id="@+id/headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-    <TextView
-        android:id="@+id/author"
-        android:layout_width="215dp"
-        android:layout_height="29dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="14dp"
-        android:text="AUTHOR"
-        app:layout_constraintHorizontal_bias="0.816"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+            android:layout_marginBottom="12dp"
 
-    <TextView
-        android:id="@+id/headline"
-        android:layout_width="346dp"
-        android:layout_height="69dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="serif-monospace"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:typeface="serif"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:fontFamily="serif-monospace"
+            android:text="TextView"
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="406dp"
-        android:layout_height="207dp"
-        app:srcCompat="@drawable/cnn"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="14dp"
-        app:layout_constraintTop_toBottomOf="@+id/headline"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintHorizontal_bias="0.503" />
+            android:textAlignment="center"
+
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:typeface="serif"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            app:srcCompat="@drawable/cnn"
+
+            android:layout_marginBottom="12dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintTop_toBottomOf="@+id/headline" />
+
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="AUTHOR"
+
+
+            android:layout_marginBottom="12dp"
+
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"/>
+
+
+        <TextView
+            android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:fontFamily="monospace"
+            android:text="Body"
+            android:textAlignment="center"
+
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/author"/>
+
+
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

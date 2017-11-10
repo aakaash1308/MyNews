@@ -20,23 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    String[] channelNames = {
-            "BBC",
-            "CNBC"
-
-    };
-
-    int[] channelImages = {
-
-            R.drawable.cnn,
-            R.drawable.foxnews
-    };
 
     // variable declaration
     GridView newsChannels;
     GridView newsArticles;
     public static TextView title;
     static String sourceName;
+    static int sourcePosition;
     static String kind;
     Context mcontext;
     //public static TextView articles;
@@ -70,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 ImageView myimage = (ImageView) image.findViewById(R.id.imageview);
                 Intent intent = new Intent(getApplicationContext(), ArticleChoiceActivity.class);
                 sourceName = myimage.getTag().toString();
+                sourcePosition = position;
                 kind = String.valueOf(sourceName.charAt(sourceName.length()-1));
                 if(kind.equals("1")){
                     makeMoreLiberal();
@@ -82,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
                 intent.putExtra(sourceName,sourceName);
                 intent.putExtra(kind, kind);
+                intent.putExtra(String.valueOf(sourcePosition), sourcePosition);
                 //finish();
                 startActivity(intent);
             }});
@@ -97,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         user.setHowLiberal(user.gethowLiberal()-5);
         Log.i("howLiberal", String.valueOf(user.gethowLiberal()));
     }
-
 
     public void createUserInDatabase(String username) {
         User user = new User(username);

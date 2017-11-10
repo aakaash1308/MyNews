@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.example.aakaashkapoor.mynews"
         minSdkVersion 15
@@ -31,11 +31,12 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-allprojects{
-    repositories{
+allprojects {
+    repositories {
         jcenter()
     }
 }
+
 
 
 apply plugin: 'com.google.gms.google-services'

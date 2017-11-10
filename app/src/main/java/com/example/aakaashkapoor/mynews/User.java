@@ -19,6 +19,7 @@ public class User{
     int howLiberal;
     private int firstTime = 0; // checks if this is the first time the app is opened
     Context mContext;
+    int eventNum;
 
     public User(String username) {
         this.username = username;
@@ -29,6 +30,7 @@ public class User{
         SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
         String username = prefs.getString("username1", "this is the first time."); // username will be set to the second argument if it doesn't exist
         this.howLiberal = prefs.getInt("howLiberal", 50); // username will be set to the second argument if it doesn't exist
+        this.eventNum = prefs.getInt("eventNum", 0); // username will be set to the second argument if it doesn't exist
 
         if(username.equals("this is the first time.")) // check for the first time and create a random username
         {
@@ -49,15 +51,28 @@ public class User{
         return username;
     }
     public int gethowLiberal(){ return howLiberal;}
+    public int getEventNum(){
+        setEventNum();
+        return eventNum - 1 ;
+    }
 
     public void setUsername(String username) {
         this.username = username;
+    }
+    public void setEventNum(){
+        SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
+        SharedPreferences.Editor editor = prefs.edit();
+
+        editor.putInt("eventNum", eventNum + 1);
+        this.eventNum = eventNum + 1;
+        editor.commit();
     }
     public void setHowLiberal(int howLiberal) {
 
         SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("howLiberal", howLiberal);
+        //editor.putInt("howLiberal", howLiberal);
+        editor.putInt("howLiberal", 50);
         this.howLiberal = howLiberal;
         editor.commit();
 

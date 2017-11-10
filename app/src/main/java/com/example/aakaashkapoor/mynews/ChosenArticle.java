@@ -50,19 +50,7 @@ public class ChosenArticle extends AppCompatActivity {
         //WebView webview = new WebView(this);
         //setContentView(webview);
         //webview.loadUrl(destination);
-        makeEntry("PP");
+        //makeEntry(sourceName);
     }
 
-    public void makeEntry(String sourceName)//Integer sourceNumber, Integer type)
-    {
-        User user = new User(this);
-        //Log.i("username", user.getUsername());
-        Date currentTime = Calendar.getInstance().getTime();
-        //Log.i("username", currentTime.toString());
-        //Log.i("username", sourceName);
-        Entry entry = new Entry(user.getUsername(), currentTime.toString(), 8,1);
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.push().setValue(entry);
-
-    }
 }

@@ -75,11 +75,10 @@ public class ArticlesGridAdapter extends BaseAdapter {
 
         final ImageView articleImageView = (ImageView)convertView.findViewById(R.id.article_cover_art);
 
-        Log.i("URRRRLRLLRLRLLRLRLRLL", articleNames.get(position));
-        Log.i("URRRRLRLLRLRLLRLRLRLL", articleImages.get(position));
-
         articleImageView.setImageResource(R.drawable.cnn);
-        Picasso.with(this.mContext).load(articleImages.get(position)).into(articleImageView);
+
+        if(articleImages.size() > position) // checking for any errors
+            Picasso.with(this.mContext).load(articleImages.get(position)).into(articleImageView);
 
         return convertView;
     }
