@@ -3,6 +3,7 @@ package com.example.aakaashkapoor.mynews;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -71,8 +72,14 @@ public class User{
 
         SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
         SharedPreferences.Editor editor = prefs.edit();
-        //editor.putInt("howLiberal", howLiberal);
-        editor.putInt("howLiberal", 50);
+        editor.putInt("howLiberal", howLiberal);
+        //editor.putInt("howLiberal", 50);
+        if(howLiberal < 5)
+            howLiberal = 5;
+        if(howLiberal > 95)
+            howLiberal = 95;
+
+        Log.i("howLiberal", String.valueOf(howLiberal));
         this.howLiberal = howLiberal;
         editor.commit();
 
