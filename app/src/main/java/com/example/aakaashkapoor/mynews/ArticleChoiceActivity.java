@@ -30,10 +30,11 @@ public class ArticleChoiceActivity extends AppCompatActivity {
 
     public static String sourceName = "" , headline, body, author,url ;
     public static String kind;
-    public static int sourcePosition;
+    public static int sourcePosition, articlePosition;
     Context mcontext;
 
     public static GridView newsArticles;
+    public static final int OPEN_NEW_ACTIVITY = 123;
 
 
     @Override
@@ -87,16 +88,23 @@ public class ArticleChoiceActivity extends AppCompatActivity {
                     } else {
                         makeMoreConservative();
                     }
-                    makeArticleEntry(sourceName,headline,position);
-                    startActivity(intent);
+                    articlePosition = position;
+                    //makeArticleEntry(sourceName,headline,position);
+                    startActivityForResult(intent, OPEN_NEW_ACTIVITY);
 
                 }
             }});
-
-
-
-
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == OPEN_NEW_ACTIVITY) {
+            // Execute your code on back here
+            // ....
+            makeArticleEntry(sourceName,headline,articlePosition);
+        }
+    }
+
     public void makeEntry(String sourceName)//Integer sourceNumber, Integer type)
     {
         Log.i("Making Entry", "--------------HERE----------");
