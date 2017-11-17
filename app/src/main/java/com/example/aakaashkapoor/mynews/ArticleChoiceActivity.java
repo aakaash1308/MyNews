@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -96,12 +97,32 @@ public class ArticleChoiceActivity extends AppCompatActivity {
             }});
     }
 
+    public String createTime(long time)
+    {
+        long min = time/60;
+        long seconds = time%60;
+        String toMake = "";
+        if(min < 10)
+            toMake = toMake + "0" + min;
+        else
+            toMake = toMake + min;
+
+        toMake += ":";
+        if(seconds < 10)
+            toMake = toMake + "0" + seconds;
+        else
+            toMake = toMake + seconds;
+        return toMake;
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == OPEN_NEW_ACTIVITY) {
             // Execute your code on back here
             // ....
-            makeArticleEntry(sourceName,headline,articlePosition);
+            Log.i("time passed" , String.valueOf(data.getExtras().getLong("time")));
+
+            String time = createTime(data.getExtras().getLong("time"));
+            makeArticleEntry(sourceName,headline,articlePosition, time);
         }
     }
 
@@ -116,13 +137,13 @@ public class ArticleChoiceActivity extends AppCompatActivity {
 
     }
 
-    public void makeArticleEntry(String sourceName,String articleName, int position)//Integer sourceNumber, Integer type)
+    public void makeArticleEntry(String sourceName,String articleName, int position, String time)//Integer sourceNumber, Integer type)
     {
         Log.i("Making Entry", "--------------HERE----------");
         User user = new User(this);
         Date currentTime = Calendar.getInstance().getTime();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(user.getUsername());
-        Entry entry = new Entry(currentTime.toString(), sourceName,articleName, position+1,"0");
+        Entry entry = new Entry(currentTime.toString(), sourceName,articleName, position+1,time);
         databaseReference.child(String.valueOf(user.getEventNum())).setValue(entry);
     }
 
