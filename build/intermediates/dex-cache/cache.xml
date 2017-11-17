@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/aakaashkapoor/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/aakaashkapoor/Downloads/ud851-Sunshine-student/MyNews/app/build/intermediates/pre-dexed/debug/picasso-2.5.2_b184afdf3937d2aa63ad178edf7d6785e3b5943d.jar" />
+    </item>
+
+</items>
