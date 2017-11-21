@@ -58,7 +58,13 @@ public class User{
     }
 
     public void setUsername(String username) {
+
+        SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
+        SharedPreferences.Editor editor = prefs.edit();
+
+        editor.putString("username1", username);
         this.username = username;
+        editor.commit();
     }
     public void setEventNum(){
         SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone

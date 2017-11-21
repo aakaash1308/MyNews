@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     static int sourcePosition;
     static String kind;
     Context mcontext;
+    public String LogInID = "";
     //public static TextView articles;
 
 
@@ -37,11 +38,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
-//        Intent intent = new Intent(getApplicationContext(), ArticleChoiceActivity.class);
-//        finish();
-//        startActivity(intent);
+
         title = (TextView) findViewById(R.id.textView2) ;
 
         User user = new User(this); // for checking the user
