@@ -47,7 +47,7 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
         if(v == Login) {
 
             if(checkExists() == 1) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), intermediate.class);
                 String LoginID = this.LogInId.getText().toString().trim();
                 Log.i("TEST", LoginID);
 
@@ -57,7 +57,7 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
                 finish();
                 startActivity(intent);
             }else{
-                //Toast.makeText(this, "Invalid Log In ID", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Invalid Log In ID", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -65,24 +65,7 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
     }
 
     private int checkExists(){
-//
-//
-//        Log.i("TEST", "OIUYTR");
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-//                    Entry entry = snapshot.getValue(Entry.class);
-//                    Log.i("TEST", "OP");
-//                    list.add(entry);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
+
         DatabaseReference users = FirebaseDatabase.getInstance().getReference();
         users.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

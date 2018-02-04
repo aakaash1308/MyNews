@@ -19,14 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".ArticleChoiceActivity"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ChosenArticle"
-            android:parentActivityName=".ArticleChoiceActivity"></activity>
-
+            android:parentActivityName=".ArticleChoiceActivity" />
+        <activity android:name=".intermediate"></activity>
     </application>
 
 </manifest>

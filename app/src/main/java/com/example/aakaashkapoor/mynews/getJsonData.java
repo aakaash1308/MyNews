@@ -53,8 +53,8 @@ public class getJsonData extends AsyncTask<String,Void,Void> {
             URL url = new URL("https://api.newsapi.aylien.com/api/v1/stories?categories.taxonomy=iptc-subjectcode&categories.confident=true&categories.id%5B%5D=11000000&source.name%5B%5D="+voids[0]+"&cluster=false&cluster.algorithm=lingo&sort_by=published_at&sort_direction=desc&cursor=*&per_page=10"
             );
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-ID","7b8af02f" );
-            httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-Key", "c942956d0800ad3783863048b0e3c66b");
+            httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-ID","1366a8cf" );
+            httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-Key", "63d9a0a45b153f60fcd50df88414a64f");
             InputStream inputStream = httpURLConnection.getInputStream();
 
 
