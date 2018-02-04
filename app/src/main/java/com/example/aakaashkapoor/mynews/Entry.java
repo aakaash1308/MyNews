@@ -10,23 +10,27 @@ package com.example.aakaashkapoor.mynews;
 
 public class Entry {
 
-    String username;//YOLO BIATCH
     String timeStamp;
-    Integer sourceNumber;
-    Integer type;
-    public Entry(String username, String timeStamp, Integer sourceNumber, Integer type) {
-        this.username = username;
+    String sourceName;
+    String articleName;
+    int position;
+    String timeSpent;
+
+    public Entry(String timeStamp, String sourceName, Integer position) {
+
         this.timeStamp = timeStamp;
-        this.sourceNumber = sourceNumber;
-        this.type = type;
+        this.sourceName = sourceName;
+        this.position = position;
+        this.articleName = "";
+        this.timeSpent = "";
     }
+    public Entry(String timeStamp, String sourceName, String articleName, Integer position, String timeSpent) {
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+        this.timeStamp = timeStamp;
+        this.sourceName = sourceName;
+        this.articleName = articleName;
+        this.position = position;
+        this.timeSpent = timeSpent;
     }
 
     public String getTimeStamp() {
@@ -37,19 +41,38 @@ public class Entry {
         this.timeStamp = timeStamp;
     }
 
-    public Integer getSourceNumber() {
-        return sourceNumber;
+
+    public String getSourceName() {
+        return sourceName;
     }
 
-    public void setSourceNumber(Integer sourceNumber) {
-        this.sourceNumber = sourceNumber;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 
-    public Integer getType() {
-        return type;
+    public String getArticleName() {
+        return articleName;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setArticleName(String articleName) {
+        this.articleName = articleName;
     }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public String getTimeSpent() {
+        return timeSpent;
+    }
+
+    public void setTimeSpent(String timeSpent) {
+        this.timeSpent = timeSpent;
+    }
+
+
 }

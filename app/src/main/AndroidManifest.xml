@@ -12,19 +12,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LogInPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
         <activity
-            android:name=".ArticleChoiceActivity" android:parentActivityName=".MainActivity">
-        </activity>
+            android:name=".ArticleChoiceActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".ChosenArticle" android:parentActivityName=".ArticleChoiceActivity">
-        </activity>
+            android:name=".ChosenArticle"
+            android:parentActivityName=".ArticleChoiceActivity" />
+        <activity android:name=".intermediate"></activity>
     </application>
 
 </manifest>

@@ -1,7 +1,15 @@
 package com.example.aakaashkapoor.mynews;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.view.View;
+import android.widget.Adapter;
+import android.widget.GridView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,6 +25,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import static com.example.aakaashkapoor.mynews.ArticlesGridAdapter.articleImages;
+import static com.example.aakaashkapoor.mynews.ArticlesGridAdapter.articleNames;
+
 /**
  * Created by aakaashkapoor on 9/5/17.
  */
@@ -24,17 +35,29 @@ import java.util.ArrayList;
 public class getJsonData extends AsyncTask<String,Void,Void> {
     String jsonData = "";
     JSONObject jsonObject;
+    ProgressDialog pd;
+    Context mContext;
+
+    // getting the context
+    public getJsonData (Context context){
+        mContext = context;
+    }
 
     @Override
     protected Void doInBackground(String... voids) {
         try {
-            //Log.i("I am currently here", " yes");
+
+
+            Log.i("I am currently here", voids[0]);
+
             URL url = new URL("https://api.newsapi.aylien.com/api/v1/stories?categories.taxonomy=iptc-subjectcode&categories.confident=true&categories.id%5B%5D=11000000&source.name%5B%5D="+voids[0]+"&cluster=false&cluster.algorithm=lingo&sort_by=published_at&sort_direction=desc&cursor=*&per_page=10"
             );
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-ID","7b8af02f" );
-            httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-Key", "c942956d0800ad3783863048b0e3c66b");
+            httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-ID","1366a8cf" );
+            httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-Key", "63d9a0a45b153f60fcd50df88414a64f");
             InputStream inputStream = httpURLConnection.getInputStream();
+
+
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             StringBuilder responseStrBuilder = new StringBuilder();
             String inputStr;
@@ -61,7 +84,7 @@ public class getJsonData extends AsyncTask<String,Void,Void> {
 
         JSONArray jsonArray = null, mediaArray = null;
         try {
-            Log.i("news", jsonObject.toString());
+            //Log.i("news", jsonObject.toString());
             jsonArray = jsonObject.getJSONArray("stories");
 
         } catch (JSONException e) {
@@ -69,20 +92,24 @@ public class getJsonData extends AsyncTask<String,Void,Void> {
         }
 
         int i = 0;
+        ArrayList<String> articleAuthor= new ArrayList<String>();
+        ArrayList<String> articleNames = new ArrayList<String>();
+        ArrayList<String> articleBody = new ArrayList<String>();
+        ArrayList<String> articleImages = new ArrayList<String>();
         while(i < jsonArray.length() && i < 6)
         {
             try {
                 JSONObject array = new JSONObject(jsonArray.get(i).toString());
-                ArticleChoiceActivity.articleNames.add(array.get("title").toString());
-                ArticleChoiceActivity.articleBody.add(array.get("body").toString());
+                articleNames.add(array.get("title").toString());
+                articleBody.add(array.get("body").toString());
 
                 JSONObject author = (JSONObject) array.get("author");
-                ArticleChoiceActivity.articleAuthor.add(author.get("name").toString());
+                articleAuthor.add(author.get("name").toString());
 
                 JSONArray media = (JSONArray) array.get("media");
                 JSONObject medias = (JSONObject) media.get(0);
 
-                ArticleChoiceActivity.articleImages.add((String) medias.get("url"));
+                articleImages.add((String) medias.get("url"));
 
           } catch (JSONException e) {
                 e.printStackTrace();
@@ -90,6 +117,22 @@ public class getJsonData extends AsyncTask<String,Void,Void> {
 //
             i++;
         }
+
+        ArticleChoiceActivity.articleBody = articleBody;
+        ArticleChoiceActivity.articleNames = articleNames;
+        ArticleChoiceActivity.articleAuthor = articleAuthor;
+        ArticleChoiceActivity.articleImages = articleImages;
+
+        Log.i("number of articles here", String.valueOf(articleNames.size()));
+        ArticlesGridAdapter articleAdapter = new ArticlesGridAdapter(mContext, articleNames, articleImages);//, articleNames);
+        ArticleChoiceActivity.newsArticles.setAdapter(articleAdapter);
+
+
         Log.i("article names: ", "GOT ALL 6 BABY!!!");
+        //Log.i("article names: ", ArticleChoiceActivity.articleNames.get(0));
+
+
+
+
     }
 }

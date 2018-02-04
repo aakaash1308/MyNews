@@ -1,6 +1,8 @@
 package com.example.aakaashkapoor.mynews;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -18,11 +20,14 @@ import java.util.Date;
 
 public class ChosenArticle extends AppCompatActivity {
 
+    long timeElapsed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chosen_article);
 
+        timeElapsed = (System.currentTimeMillis());
         Intent intent = getIntent();
         String sourceName = "";
         String destinationHeadline = "";
@@ -50,19 +55,21 @@ public class ChosenArticle extends AppCompatActivity {
         //WebView webview = new WebView(this);
         //setContentView(webview);
         //webview.loadUrl(destination);
-        makeEntry("PP");
+        //makeEntry(sourceName);
     }
+    @Override
+    public void onBackPressed() {
+        Intent data = new Intent();
+        long currentTIme = System.currentTimeMillis();
+        data.putExtra("time" , (currentTIme - timeElapsed)/1000);
+        // add data to Intent
+        setResult(Activity.RESULT_OK, data);
+        super.onBackPressed();
 
-    public void makeEntry(String sourceName)//Integer sourceNumber, Integer type)
+    }
+    public String getThisData()
     {
-        User user = new User(this);
-        //Log.i("username", user.getUsername());
-        Date currentTime = Calendar.getInstance().getTime();
-        //Log.i("username", currentTime.toString());
-        //Log.i("username", sourceName);
-        Entry entry = new Entry(user.getUsername(), currentTime.toString(), 8,1);
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.push().setValue(entry);
-
+        return "hell0";
     }
+
 }

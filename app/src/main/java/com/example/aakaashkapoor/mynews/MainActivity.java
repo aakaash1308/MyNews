@@ -1,5 +1,6 @@
 package com.example.aakaashkapoor.mynews;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,23 +20,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    String[] channelNames = {
-            "BBC",
-            "CNBC"
-
-    };
-
-    int[] channelImages = {
-
-            R.drawable.cnn,
-            R.drawable.foxnews
-    };
 
     // variable declaration
     GridView newsChannels;
     GridView newsArticles;
     public static TextView title;
     static String sourceName;
+    static int sourcePosition;
+    static String kind;
+    Context mcontext;
+    public String LogInID = "";
     //public static TextView articles;
 
 
@@ -44,12 +38,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
 
         title = (TextView) findViewById(R.id.textView2) ;
 
         User user = new User(this); // for checking the user
-
+        mcontext = this;
         if(user.checkFirstTime())
             createUserInDatabase(user.username);
 
@@ -65,13 +61,36 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View image, int position, long id) {
 
                 ImageView myimage = (ImageView) image.findViewById(R.id.imageview);
-                Toast.makeText(getApplicationContext(),myimage.getTag().toString() , Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), ArticleChoiceActivity.class);
                 sourceName = myimage.getTag().toString();
+                sourcePosition = position;
+                kind = String.valueOf(sourceName.charAt(sourceName.length()-1));
+                if(kind.equals("1")){
+                    makeMoreLiberal();
+                }
+                else{
+                    makeMoreConservative();
+                }
+                sourceName = sourceName.substring(0,sourceName.length()-1);
+                Toast.makeText(getApplicationContext(),sourceName , Toast.LENGTH_SHORT).show();
+
                 intent.putExtra(sourceName,sourceName);
+                intent.putExtra(kind, kind);
+                intent.putExtra(String.valueOf(sourcePosition), sourcePosition);
+                //finish();
                 startActivity(intent);
             }});
 
+    }
+    public void makeMoreLiberal(){
+        User user = new User(mcontext);
+        user.setHowLiberal(user.gethowLiberal()+5);
+        Log.i("howLiberal", String.valueOf(user.gethowLiberal()));
+    }
+    public void makeMoreConservative(){
+        User user = new User(mcontext);
+        user.setHowLiberal(user.gethowLiberal()-5);
+        Log.i("howLiberal", String.valueOf(user.gethowLiberal()));
     }
 
     public void createUserInDatabase(String username) {

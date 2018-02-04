@@ -2,31 +2,31 @@
     <string name="app_name">My News</string>
 
     <integer-array name="conservative_images">
-        <item formatted = "false">@drawable/breitbart</item>
-        <item formatted = "false">@drawable/foxnews</item>
-        <item formatted = "false">@drawable/drudgereport</item>
-        <item formatted = "false">@drawable/dailycaller</item>
-        <item formatted = "false">@drawable/washingtontimes</item>
-        <item formatted = "false">@drawable/townhall</item>
-        <item formatted = "false">@drawable/thehill</item>
-        <item formatted = "false">@drawable/newyorkpost</item>
-        <item formatted = "false">@drawable/zerohedge</item>
-        <item formatted = "false">@drawable/theblaze</item>
-        <item formatted = "false">@drawable/nationalreview</item>
+        <item formatted="false">@drawable/breitbart</item>
+        <item formatted="false">@drawable/foxnews</item>
+        <item formatted="false">@drawable/drudgereport</item>
+        <item formatted="false">@drawable/dailycaller</item>
+        <item formatted="false">@drawable/washingtontimes</item>
+        <item formatted="false">@drawable/townhall</item>
+        <item formatted="false">@drawable/thehill</item>
+        <item formatted="false">@drawable/newyorkpost</item>
+        <item formatted="false">@drawable/zerohedge</item>
+        <item formatted="false">@drawable/theblaze</item>
+        <item formatted="false">@drawable/nationalreview</item>
     </integer-array>
 
     <string-array name="conservative_names" formatted="true">
         <item>Breitbart</item>
         <item>FoxNews</item>
-        <item>Drudge\%%20Report</item>
-        <item>Daily\%%20Caller</item>
-        <item>Washington\%%20Times</item>
+        <item>Drudge\%20Report</item>
+        <item>Daily\%20Caller</item>
+        <item>Washington\%20Times</item>
         <item>Townhall</item>
-        <item>The\%%20Hill</item>
-        <item>New\%%20York Post</item>
-        <item>Zero\%%20Hedge</item>
-        <item>The\%%20Blaze</item>
-        <item>National\%%20Review</item>
+        <item>The\%20Hill</item>
+        <item>New\%20York\%20Post</item>
+        <item>Zero\%20Hedge</item>
+        <item>The\%20Blaze</item>
+        <item>National\%20Review</item>
     </string-array>
 
 
@@ -45,17 +45,17 @@
     </integer-array>
 
     <string-array name="liberal_names">
-        <item formatted = "false">MSNBC</item>
-        <item formatted = "false">New\%%20Yorker</item>
-        <item formatted = "false">CNN</item>
-        <item formatted = "false">Huffington\%%20Post</item>
-        <item formatted = "false">Politico</item>
-        <item formatted = "false">The\%%20New\%%20York\%%20Times</item>
-        <item formatted = "false">Washington\%%20Post</item>
-        <item formatted = "false">NBC\%%20News</item>
-        <item formatted = "false">Daily\%%20Kos</item>
-        <item formatted = "false">Vox</item>
-        <item formatted = "false">The\%%20Nation</item>
+        <item formatted="false">MSNBC</item>
+        <item formatted="false">New\%20Yorker</item>
+        <item formatted="false">CNN</item>
+        <item formatted="false">Huffington\%20Post</item>
+        <item formatted="false">Politico</item>
+        <item formatted="false">The\%20New\%20York\%20Times</item>
+        <item formatted="false">Washington\%20Post</item>
+        <item formatted="false">NBC\%20News</item>
+        <item formatted="false">Daily\%20Kos</item>
+        <item formatted="false">Vox</item>
+        <item formatted="false">The\%20Nation</item>
     </string-array>
 
 
