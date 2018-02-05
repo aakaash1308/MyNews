@@ -1,6 +1,7 @@
 package com.example.aakaashkapoor.mynews;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,8 +27,7 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
     public DatabaseReference databaseReference;
     public int toCheck = -1;
 
-    final List<Entry> list = Collections.EMPTY_LIST;
-
+    public List<String> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,11 +35,14 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
 
         LogInId = (EditText) findViewById(R.id.userID);
         Login = (Button) findViewById(R.id.LogIn);
+        list = new ArrayList<String>();
 
-        databaseReference =  FirebaseDatabase.getInstance().getReference().child("mynews-b08ca");
+        databaseReference =  FirebaseDatabase.getInstance("https://echo-chamber-7e6d4.firebaseio.com/").getReference();
 
 
         Login.setOnClickListener(this);
+        checkExists();
+        Log.i("TEST", String.valueOf(list));
 
     }
 
@@ -46,10 +50,11 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
         if(v == Login) {
 
-            if(checkExists() == 1) {
+
+            if(list.contains( String.valueOf(LogInId.getText()))){
+
                 Intent intent = new Intent(getApplicationContext(), intermediate.class);
                 String LoginID = this.LogInId.getText().toString().trim();
-                Log.i("TEST", LoginID);
 
                 User user = new User(this);
                 user.setUsername(LoginID);
@@ -64,17 +69,18 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
 
     }
 
-    private int checkExists(){
+    public  void checkExists(){
 
-        DatabaseReference users = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference users  =  FirebaseDatabase.getInstance("https://echo-chamber-7e6d4.firebaseio.com/").getReference();
+
         users.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.child(String.valueOf(LogInId.getText())).exists()) {
-                    // run some code
-                    toCheck = 1;
-                }else{
-                    toCheck = 0;
+
+
+                for (DataSnapshot child: snapshot.getChildren()) {
+                    if(!child.getKey().equalsIgnoreCase("News"))
+                        list.add(child.getKey());
                 }
             }
 
@@ -83,6 +89,5 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
 
             }
         });
-        return toCheck;
     }
 }
