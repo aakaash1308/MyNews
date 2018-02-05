@@ -1,7 +1,9 @@
 package com.example.aakaashkapoor.mynews;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,7 @@ public class ChannelsGridAdapter extends BaseAdapter {
     private final TypedArray liberal_images;
     private final TypedArray conservative_names;
     private final TypedArray liberal_names;
+    public String[] Channels; // will store the saved articles
 
     Context context;
     View view;
@@ -41,6 +44,8 @@ public class ChannelsGridAdapter extends BaseAdapter {
         Collections.shuffle(display);
 
         //Log.i("testetetetetetetet",display.toString());
+
+        Channels = getChannelsFromMemory(context);
 
         conservative_images = context.getResources().obtainTypedArray(R.array.conservative_images);
         liberal_images = context.getResources().obtainTypedArray(R.array.liberal_images);
@@ -76,6 +81,30 @@ public class ChannelsGridAdapter extends BaseAdapter {
         return true;
     }
 
+    //
+    // function that will populate the Channels array
+    //
+    public String[] getChannelsFromMemory(Context mContext)
+    {
+        SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
+        String allChannels = prefs.getString("allChannels", "0 c,1 l,2 c,3 l,4 c,5 l,6 c,7 l,8 c,9 l,10 c"); // username will be set to the second argument if it doesn't exist
+
+        Channels = TextUtils.split(allChannels, ","); // splits the channels into an array
+
+
+
+        return Channels;
+    }
+
+    //
+    // function that will say if its a new day
+    //
+    public boolean checkNewDay()
+    {
+        return false;
+    }
+
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -83,33 +112,51 @@ public class ChannelsGridAdapter extends BaseAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         int currentImage = 0;
         String currentName = "";
-        if(isLiberal()){
-            currentImage = liberal_images.getResourceId(display.get(position),-1);
-            currentName = liberal_names.getString(display.get(position));
-            currentName = currentName + "1";
-            //1 is for liberal
-        }
-        else{
 
-            currentImage = conservative_images.getResourceId(display.get(position),-1);
-            currentName = conservative_names.getString(display.get(position));
-            currentName = currentName + "0";
+        if(checkNewDay()) // creates a random channels array if its a new day
+        {
+            if (isLiberal()) {
+                currentImage = liberal_images.getResourceId(display.get(position), -1);
+                currentName = liberal_names.getString(display.get(position));
+                currentName = currentName + "1";
+                //1 is for liberal
+            } else {
+
+                currentImage = conservative_images.getResourceId(display.get(position), -1);
+                currentName = conservative_names.getString(display.get(position));
+                currentName = currentName + "0";
+            }
+        }
+        else // creates an array based on array that was saved
+        {
+            String[] channel = Channels[position].split(" ");
+            Log.i("getView", Channels[position]);
+            int channelNumber = Integer.parseInt(channel[0]); // gets which channel
+
+            if (channel[1].equals("l")) {
+                currentImage = liberal_images.getResourceId(channelNumber, -1);
+                currentName = liberal_names.getString(channelNumber);
+                currentName = currentName + "1";
+                //1 is for libera
+            }
+            else {
+                currentImage = conservative_images.getResourceId(channelNumber, -1);
+                currentName = conservative_names.getString(channelNumber);
+                currentName = currentName + "0";
+            }
         }
 
-        if(convertView == null) {
+        if (convertView == null) {
             view = new View(context);
             view = layoutInflater.inflate(R.layout.single_channel, null);
-            ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
-            imageView.setImageResource(currentImage);
-            imageView.setTag(currentName);
-        }
-        else{
+        } else {
             view = (View) convertView;
-            ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
-            imageView.setImageResource(currentImage);
-            imageView.setTag(currentName);
         }
 
+        ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
+        imageView.setImageResource(currentImage);
+        imageView.setTag(currentName);
         return view;
     }
+
 }
