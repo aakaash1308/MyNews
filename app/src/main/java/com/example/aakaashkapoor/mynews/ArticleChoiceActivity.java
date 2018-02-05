@@ -5,15 +5,21 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.LogPrinter;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.Console;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,10 +35,13 @@ public class ArticleChoiceActivity extends AppCompatActivity {
     public static ArrayList<String> articleBody = new ArrayList<String>();
     public static ArrayList<String> articleImages = new ArrayList<String>();
 
-    public static String sourceName = "" , headline, body, author,url ;
+    public static String sourceName = "" , headline, body, author,url, articleTimestamp, sourceTimestamp, sourcePosition;
     public static String kind;
-    public static int sourcePosition, articlePosition;
+    public  int  articlePosition;
     Context mcontext;
+
+    public int entryNumber = 0;
+    public int SourceHasBeenClicked = 0;
 
     public static GridView newsArticles;
     public static final int OPEN_NEW_ACTIVITY = 123;
@@ -42,15 +51,18 @@ public class ArticleChoiceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_choice);
+        Date cDate = new Date();
+        sourceTimestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss XXX").format(cDate);
+
+        User user = new User(this);
 
         newsArticles = (GridView) findViewById(R.id.articleView);
 
         mcontext = this;
         Intent intent = getIntent();
         sourceName = intent.getStringExtra(String.valueOf(MainActivity.sourceName));
-        sourcePosition = intent.getIntExtra(String.valueOf(MainActivity.sourcePosition), 0);
+        sourcePosition = intent.getStringExtra("sourcePosition");
 
-        makeEntry(sourceName);
         kind = intent.getStringExtra(MainActivity.kind);
         //TextView textView = (TextView) findViewById(R.id.textView);
         //textView.setText(message);
@@ -59,38 +71,41 @@ public class ArticleChoiceActivity extends AppCompatActivity {
         getJsonData jsonData = new getJsonData(mcontext);
         jsonData.execute(sourceName);
 
-        Log.i("newssssss", "herererererererer");
-        Log.i("number of articles here", String.valueOf(articleNames.size()));
         ArticlesGridAdapter articleAdapter = new ArticlesGridAdapter(this, articleNames, articleImages);//, articleNames);
         newsArticles.setAdapter(articleAdapter);
-        //articleView.setAdapter(articleAdapter);
-        //articleView.setVisibility(View.VISIBLE);
 
-        //articleNames.clear();
-        //articleImages.clear();
         newsArticles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View image, int position, long id) {
 
+                SourceHasBeenClicked = 1;
                 if(articleNames.size() > 0) {
                     Intent intent = new Intent(getApplicationContext(), ChosenArticle.class);
-                    intent.putExtra(sourceName, sourceName);
+
                     headline = articleNames.get(position);//editText.getText().toString();
-                    intent.putExtra(headline, headline);
                     body = articleBody.get(position);//editText.getText().toString();
-                    intent.putExtra(body, body);
                     author = articleAuthor.get(position);//editText.getText().toString();
-                    intent.putExtra(author, author);
+                    articlePosition = position;
+                    Date cDate = new Date();
+                    articleTimestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss XXX").format(cDate);
                     if(articleImages.size() > position)
                         url = articleImages.get(position);//editText.getText().toString();
-                    intent.putExtra(url, url);
 
                     if (kind.equals("1")) {
                         makeMoreLiberal();
                     } else {
                         makeMoreConservative();
                     }
-                    articlePosition = position;
-                    //makeArticleEntry(sourceName,headline,position);
+
+                    intent.putExtra("sourceName", fixName(sourceName));
+                    intent.putExtra("headline", headline);
+                    intent.putExtra("author", author);
+                    intent.putExtra("url", url);
+                    intent.putExtra("body", body);
+                    intent.putExtra("articleTimestamp", articleTimestamp);
+                    intent.putExtra("SP",String.valueOf(sourcePosition));
+                    intent.putExtra("articlePosition", articlePosition);
+                    intent.putExtra("sourceeTimestamp", sourceTimestamp);
+
                     startActivityForResult(intent, OPEN_NEW_ACTIVITY);
 
                 }
@@ -114,38 +129,8 @@ public class ArticleChoiceActivity extends AppCompatActivity {
             toMake = toMake + seconds;
         return toMake;
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == OPEN_NEW_ACTIVITY) {
-            // Execute your code on back here
-            // ....
-            Log.i("time passed" , String.valueOf(data.getExtras().getLong("time")));
 
-            String time = createTime(data.getExtras().getLong("time"));
-            makeArticleEntry(sourceName,headline,articlePosition, time);
-        }
-    }
 
-    public void makeEntry(String sourceName)//Integer sourceNumber, Integer type)
-    {
-        Log.i("Making Entry", "--------------HERE----------");
-        User user = new User(this);
-        Date currentTime = Calendar.getInstance().getTime();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(user.getUsername());
-        Entry entry = new Entry(currentTime.toString(), sourceName,sourcePosition+1);
-        databaseReference.child(String.valueOf(user.getEventNum())).setValue(entry);
-
-    }
-
-    public void makeArticleEntry(String sourceName,String articleName, int position, String time)//Integer sourceNumber, Integer type)
-    {
-        Log.i("Making Entry", "--------------HERE----------");
-        User user = new User(this);
-        Date currentTime = Calendar.getInstance().getTime();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(user.getUsername());
-        Entry entry = new Entry(currentTime.toString(), sourceName,articleName, position+1,time);
-        databaseReference.child(String.valueOf(user.getEventNum())).setValue(entry);
-    }
 
     public void makeMoreLiberal(){
         User user = new User(mcontext);
@@ -160,4 +145,54 @@ public class ArticleChoiceActivity extends AppCompatActivity {
         // Log.i("howLiberal", String.valueOf(user.gethowLiberal()));
     }
 
+    @Override
+    public void onBackPressed() {
+        if(SourceHasBeenClicked == 0){
+
+            makeEntry(fixName(sourceName));
+
+        }
+        super.onBackPressed();
+    }
+
+    public String fixName(String sourceName){
+        for( int i = 0; i < sourceName.length(); i++) {
+            if (sourceName.charAt(i) == '%') {
+                sourceName = sourceName.substring(0, i) + ' ' + sourceName.substring(i + 3);
+            }
+        }
+
+
+        return sourceName;
+    }
+
+    public void makeEntry(final String sourceName)//Integer sourceNumber, Integer type)
+    {
+        User user = new User(this);
+
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://echo-chamber-7e6d4.firebaseio.com/").getReference().child(user.getUsername());
+
+
+        DatabaseReference mdatabase = FirebaseDatabase.getInstance("https://echo-chamber-7e6d4.firebaseio.com/").getReference().child(user.getUsername());
+
+        //gets the entry number
+        mdatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                entryNumber = (int) snapshot.getChildrenCount() + 1;
+                databaseReference.child(String.valueOf(entryNumber)).child("Source Name").setValue(sourceName);
+                databaseReference.child(String.valueOf(entryNumber)).child("Source Position").setValue(sourcePosition+1);
+                databaseReference.child(String.valueOf(entryNumber)).child("Source Timestamp").setValue(sourceTimestamp);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+    }
 }

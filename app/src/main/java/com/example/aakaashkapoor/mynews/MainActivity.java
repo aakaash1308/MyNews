@@ -45,9 +45,12 @@ public class MainActivity extends AppCompatActivity {
         title = (TextView) findViewById(R.id.textView2) ;
 
         User user = new User(this); // for checking the user
+
+
         mcontext = this;
         if(user.checkFirstTime())
             createUserInDatabase(user.username);
+
 
 
         // variable instantiation
@@ -76,12 +79,13 @@ public class MainActivity extends AppCompatActivity {
 
                 intent.putExtra(sourceName,sourceName);
                 intent.putExtra(kind, kind);
-                intent.putExtra(String.valueOf(sourcePosition), sourcePosition);
+                intent.putExtra("sourcePosition", String.valueOf(sourcePosition));
                 //finish();
                 startActivity(intent);
             }});
 
     }
+
     public void makeMoreLiberal(){
         User user = new User(mcontext);
         user.setHowLiberal(user.gethowLiberal()+5);
@@ -93,9 +97,10 @@ public class MainActivity extends AppCompatActivity {
         Log.i("howLiberal", String.valueOf(user.gethowLiberal()));
     }
 
+    // Should never be called
     public void createUserInDatabase(String username) {
         User user = new User(username);
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://echo-chamber-7e6d4.firebaseio.com/").getReference();
         databaseReference.push().setValue(user);
     }
 

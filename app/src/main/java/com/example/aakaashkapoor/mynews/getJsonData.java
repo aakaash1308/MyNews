@@ -53,8 +53,8 @@ public class getJsonData extends AsyncTask<String,Void,Void> {
             URL url = new URL("https://api.newsapi.aylien.com/api/v1/stories?categories.taxonomy=iptc-subjectcode&categories.confident=true&categories.id%5B%5D=11000000&source.name%5B%5D="+voids[0]+"&cluster=false&cluster.algorithm=lingo&sort_by=published_at&sort_direction=desc&cursor=*&per_page=10"
             );
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-ID","1366a8cf" );
-            httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-Key", "63d9a0a45b153f60fcd50df88414a64f");
+            httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-ID","5b83eabb" );
+            httpURLConnection.addRequestProperty("X-AYLIEN-NewsAPI-Application-Key", "b78c7ecf872ae83fe0a559495cb390d1");
             InputStream inputStream = httpURLConnection.getInputStream();
 
 
@@ -65,7 +65,7 @@ public class getJsonData extends AsyncTask<String,Void,Void> {
                 responseStrBuilder.append(inputStr);
 
             jsonObject = new JSONObject(responseStrBuilder.toString());
-            Log.i("news", jsonObject.toString());
+
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

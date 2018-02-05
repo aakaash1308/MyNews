@@ -42,7 +42,6 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
 
         Login.setOnClickListener(this);
         checkExists();
-        Log.i("TEST", String.valueOf(list));
 
     }
 

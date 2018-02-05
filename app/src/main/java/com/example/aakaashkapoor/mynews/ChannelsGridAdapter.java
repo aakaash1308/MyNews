@@ -46,7 +46,7 @@ public class ChannelsGridAdapter extends BaseAdapter {
         liberal_images = context.getResources().obtainTypedArray(R.array.liberal_images);
         conservative_names = context.getResources().obtainTypedArray(R.array.conservative_names);
         liberal_names = context.getResources().obtainTypedArray(R.array.liberal_names);
-        Log.i("asdas",liberal_names.toString());
+
     }
 
     @Override
