@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -90,18 +92,56 @@ public class ChannelsGridAdapter extends BaseAdapter {
         String allChannels = prefs.getString("allChannels", "0 c,1 l,2 c,3 l,4 c,5 l,6 c,7 l,8 c,9 l,10 c"); // username will be set to the second argument if it doesn't exist
 
         Channels = TextUtils.split(allChannels, ","); // splits the channels into an array
-
-
-
         return Channels;
     }
 
     //
+    // function that will save the Channels array
+    //
+    public void saveChannelsToMemory(Context mContext)
+    {
+        SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
+        SharedPreferences.Editor editor = prefs.edit();
+        String toPut = TextUtils.join(",", Channels);
+        Log.i("Savs channels to memory", toPut);
+        editor.putString("allChannels", toPut);
+        editor.commit();
+    }
+    //
     // function that will say if its a new day
     //
-    public boolean checkNewDay()
+    public boolean checkNewDay(Context mContext)
     {
-        return false;
+        // gets the date in the appropriate format
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("yyyy/MM/dd");
+        String currentDate =  String.valueOf(mdformat.format(calendar.getTime()));
+
+        SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
+        String dateInMemory = prefs.getString("date", "2018/02/05"); // username will be set to the second argument if it doesn't exist
+
+        if(currentDate.equals(dateInMemory)) // to check if its a new day or not
+            return false;
+
+        return true;
+    }
+
+    //
+    // function that will save the Channels array
+    //
+    public void saveDateToMemory(Context mContext)
+    {
+
+        // gets the date in the appropriate format
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("yyyy/MM/dd");
+        String currentDate =  String.valueOf(mdformat.format(calendar.getTime()));
+
+        SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
+        SharedPreferences.Editor editor = prefs.edit();
+        Log.i("Savs channels to memory", currentDate);
+        editor.putString("date", currentDate);
+        editor.commit();
     }
 
 
@@ -113,24 +153,31 @@ public class ChannelsGridAdapter extends BaseAdapter {
         int currentImage = 0;
         String currentName = "";
 
-        if(checkNewDay()) // creates a random channels array if its a new day
+        if(checkNewDay(this.context)) // creates a random channels array if its a new day
         {
             if (isLiberal()) {
                 currentImage = liberal_images.getResourceId(display.get(position), -1);
                 currentName = liberal_names.getString(display.get(position));
                 currentName = currentName + "1";
+                Channels[position] = display.get(position) + " l";  // ready to update the channels in the local storage
                 //1 is for liberal
             } else {
 
                 currentImage = conservative_images.getResourceId(display.get(position), -1);
                 currentName = conservative_names.getString(display.get(position));
                 currentName = currentName + "0";
+                Channels[position] = display.get(position) + " c"; // ready to update the channels in the local storage
+            }
+
+            if(position == 10)  // the last position, now save the channels
+            {
+                saveChannelsToMemory(this.context);
+                saveDateToMemory(this.context);
             }
         }
         else // creates an array based on array that was saved
         {
             String[] channel = Channels[position].split(" ");
-            Log.i("getView", Channels[position]);
             int channelNumber = Integer.parseInt(channel[0]); // gets which channel
 
             if (channel[1].equals("l")) {
@@ -156,7 +203,10 @@ public class ChannelsGridAdapter extends BaseAdapter {
         ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
         imageView.setImageResource(currentImage);
         imageView.setTag(currentName);
+
+        //Log.i("counting adapters", String.valueOf(position));
         return view;
     }
+
 
 }
