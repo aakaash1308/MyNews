@@ -90,9 +90,11 @@ public class ArticleChoiceActivity extends AppCompatActivity {
                     if(articleImages.size() > position)
                         url = articleImages.get(position);//editText.getText().toString();
 
+                    // different version of the app what be changed here
                     if (kind.equals("1")) {
                         makeMoreLiberal();
-                    } else {
+                    }
+                    else {
                         makeMoreConservative();
                     }
 

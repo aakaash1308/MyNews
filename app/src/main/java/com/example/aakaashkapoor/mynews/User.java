@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Created by aakaashkapoor on 8/28/17.
  * This class holds the main username for the user
@@ -51,12 +54,10 @@ public class User{
     public String getUsername() {
         return username;
     }
-    public int gethowLiberal(){ return howLiberal;}
     public int getEventNum(){
         setEventNum();
         return eventNum - 1 ;
     }
-
     public void setUsername(String username) {
 
         SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
@@ -74,6 +75,93 @@ public class User{
         this.eventNum = eventNum + 1;
         editor.commit();
     }
+
+
+    public void saveDateToMemory(Context mContext) // function that will save the Date today
+    {
+
+        // gets the date in the appropriate format
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("yyyy/MM/dd");
+        String currentDate =  String.valueOf(mdformat.format(calendar.getTime()));
+
+        SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
+        SharedPreferences.Editor editor = prefs.edit();
+        Log.i("Savs channels to memory", currentDate);
+        editor.putString("date1", currentDate);
+        editor.commit();
+    }
+    public boolean checkNewDay(Context mContext) // checks if this a new day for the user
+    {
+        // gets the date in the appropriate format
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("yyyy/MM/dd");
+        String currentDate =  String.valueOf(mdformat.format(calendar.getTime()));
+
+        SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
+        String dateInMemory = prefs.getString("date1", "2018/02/05"); // username will be set to the second argument if it doesn't exist
+
+        if(currentDate.equals(dateInMemory)) // to check if its a new day or not
+            return false;
+
+        return true;
+    }
+    public void setMoreLiberal() // sets the user to be more liberal based on the biasing
+    {
+        SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
+        SharedPreferences.Editor editor = prefs.edit();
+
+        if(checkNewDay(mContext) == false) //  a normal time in the day
+        {
+            int liberal = prefs.getInt("liberal", 6); // getting the current bias for the day
+
+            if(liberal > 0) // updating the liberal
+            {
+                editor.putInt("liberal", liberal - 1);
+                editor.commit();
+            }
+
+            setHowLiberal(this.howLiberal + liberal); // setting the new liberal count
+        }
+
+        else // a new day to start with
+        {
+            saveDateToMemory(mContext); // saving the new day
+
+            editor.putInt("liberal", 5); // resetting the offset in being liberal
+            setHowLiberal(this.howLiberal + 6); // adding 6 since the bias is now 6
+        }
+    }
+    public void setMoreConservative() // sets the user to be more liberal based on the biasing
+    {
+        SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
+        SharedPreferences.Editor editor = prefs.edit();
+
+        if(checkNewDay(mContext) == false) //  a normal time in the day
+        {
+            int conservative = prefs.getInt("conservative", 6); // getting the current bias for the day
+
+            if(conservative > 0) // updating the liberal
+            {
+                editor.putInt("conservative", conservative - 1);
+                editor.commit();
+            }
+
+            setHowLiberal(this.howLiberal - conservative); // setting the new liberal count
+        }
+
+        else // a new day to start with
+        {
+            saveDateToMemory(mContext); // saving the new day
+
+            editor.putInt("conservative", 5); // resetting the offset in being liberal
+            setHowLiberal(this.howLiberal -5); // adding 6 since the bias is now 6
+        }
+    }
+
+
+
+    public int gethowLiberal(){ return howLiberal;}
     public void setHowLiberal(int howLiberal) {
 
         SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone

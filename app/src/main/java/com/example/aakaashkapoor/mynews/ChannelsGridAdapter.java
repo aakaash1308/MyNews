@@ -127,7 +127,7 @@ public class ChannelsGridAdapter extends BaseAdapter {
     }
 
     //
-    // function that will save the Channels array
+    // function that will save the Date today
     //
     public void saveDateToMemory(Context mContext)
     {

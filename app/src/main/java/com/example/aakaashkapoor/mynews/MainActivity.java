@@ -88,13 +88,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void makeMoreLiberal(){
         User user = new User(mcontext);
-        user.setHowLiberal(user.gethowLiberal()+5);
-        Log.i("howLiberal", String.valueOf(user.gethowLiberal()));
+        user.setMoreLiberal();
     }
     public void makeMoreConservative(){
         User user = new User(mcontext);
-        user.setHowLiberal(user.gethowLiberal()-5);
-        Log.i("howLiberal", String.valueOf(user.gethowLiberal()));
+        user.setMoreConservative();
     }
 
     // Should never be called
