@@ -102,5 +102,8 @@ public class MainActivity extends AppCompatActivity {
         databaseReference.push().setValue(user);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
