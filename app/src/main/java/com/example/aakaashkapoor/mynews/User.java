@@ -24,6 +24,7 @@ public class User{
     private int firstTime = 0; // checks if this is the first time the app is opened
     Context mContext;
     int eventNum;
+    int type; // 0-BOM, 1-BWM, 2-NBX
 
     public User(String username) {
         this.username = username;
@@ -36,17 +37,17 @@ public class User{
         this.howLiberal = prefs.getInt("howLiberal", 50); // username will be set to the second argument if it doesn't exist
         this.eventNum = prefs.getInt("eventNum", 0); // username will be set to the second argument if it doesn't exist
 
-        if(username.equals("this is the first time.")) // check for the first time and create a random username
-        {
-            SharedPreferences.Editor editor = prefs.edit();
-
-            username = Long.toHexString(Double.doubleToLongBits(Math.random()));
-            firstTime = 1; // for telling the app that this is the first time
-
-            // saving in the phone
-            editor.putString("username1", username);
-            editor.commit();
-        }
+//        if(username.equals("this is the first time.")) // check for the first time and create a random username
+//        {
+//            SharedPreferences.Editor editor = prefs.edit();
+//
+//            username = Long.toHexString(Double.doubleToLongBits(Math.random()));
+//            firstTime = 1; // for telling the app that this is the first time
+//
+//            // saving in the phone
+//            editor.putString("username1", username);
+//            editor.commit();
+//        }
 
         this.username = username; // setting the correct username
     }
@@ -158,7 +159,15 @@ public class User{
             setHowLiberal(this.howLiberal -5); // adding 6 since the bias is now 6
         }
     }
-
+    public void getType() // gets the type of the user
+    {
+        if(this.username.substring(0,3).equals("BOM")) // setting the type
+            this.type = 0;
+        else if(this.username.substring(0,3).equals("BMW")) // setting the type
+            this.type = 1;
+        if(this.username.substring(0,3).equals("NBX")) // setting the type
+            this.type = 2;
+    }
 
 
     public int gethowLiberal(){ return howLiberal;}

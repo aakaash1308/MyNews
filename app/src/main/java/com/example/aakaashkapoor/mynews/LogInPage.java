@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,21 +28,39 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
     public DatabaseReference databaseReference;
     public int toCheck = -1;
 
+    public String introUsername = "this is the first time.";
+
     public List<String> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in_page);
 
+        User user = new User(this);
+//        user.setUsername(introUsername);
+
+        Log.i(user.getUsername(), "yeah");
+
+
+
         LogInId = (EditText) findViewById(R.id.userID);
         Login = (Button) findViewById(R.id.LogIn);
         list = new ArrayList<String>();
+
+        checkExists();
+
+
+        if(!user.getUsername().equals(introUsername))
+        {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            finish();
+            startActivity(intent);
+        }
 
         databaseReference =  FirebaseDatabase.getInstance("https://echo-chamber-7e6d4.firebaseio.com/").getReference();
 
 
         Login.setOnClickListener(this);
-        checkExists();
 
     }
 
@@ -52,12 +71,11 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
 
             if(list.contains( String.valueOf(LogInId.getText()))){
 
-                Intent intent = new Intent(getApplicationContext(), intermediate.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 String LoginID = this.LogInId.getText().toString().trim();
 
                 User user = new User(this);
                 user.setUsername(LoginID);
-                intent.putExtra(LoginID, LoginID);
                 finish();
                 startActivity(intent);
             }else{
