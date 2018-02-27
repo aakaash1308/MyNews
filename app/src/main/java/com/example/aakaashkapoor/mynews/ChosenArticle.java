@@ -35,6 +35,8 @@ public class ChosenArticle extends AppCompatActivity {
     public String articleTS= "";
     public String sourcePosition="";
     public String sourceTimestamp = "";
+    public String sourceTimespent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +45,10 @@ public class ChosenArticle extends AppCompatActivity {
 
 
 
-        timeElapsed = (System.currentTimeMillis());
+        timeElapsed = System.currentTimeMillis();
         Intent intent = getIntent();
 
+        sourceTimespent = intent.getStringExtra("STS");
         destinationHeadline = intent.getStringExtra("headline");
         sourceName = intent.getStringExtra("sourceName");
         destinationBody = intent.getStringExtra("body");
@@ -53,7 +56,7 @@ public class ChosenArticle extends AppCompatActivity {
         destinationUrl =intent.getStringExtra("url");
         articlePosition = intent.getStringExtra("articlePosition");
         articleTS = intent.getStringExtra("articleTimestamp");
-        sourceTimestamp = intent.getStringExtra("sourceeTimestamp");
+        sourceTimestamp = intent.getStringExtra("sourceTimestamp");
         sourcePosition = intent.getStringExtra("SP");
 
         TextView textView = (TextView) findViewById(R.id.headline);
@@ -80,13 +83,14 @@ public class ChosenArticle extends AppCompatActivity {
         intent.putExtra("time" , (currentTIme - timeElapsed)/1000);
         // add data to Intent
         setResult(Activity.RESULT_OK, intent);
-        makeEntry(sourceName, ((currentTIme - timeElapsed)/1000 ) );
+        makeEntry(sourceName, (currentTIme - timeElapsed) ,sourceTimespent);
         super.onBackPressed();
 
     }
 
-    public void makeEntry(final String sourceName, final long timeSpent){
+    public void makeEntry(final String sourceName, final long timeSpent, final String ST){
         User user = new User(this);
+        final SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
 
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://echo-chamber-7e6d4.firebaseio.com/").getReference().child(user.getUsername());
         Date cDate = new Date();
@@ -98,13 +102,14 @@ public class ChosenArticle extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 entryNumber = (int) snapshot.getChildrenCount() + 1;
-                databaseReference.child(String.valueOf(entryNumber)).child("Article Name").setValue(destinationHeadline);
+                databaseReference.child(String.valueOf(entryNumber)).child("Article Headline").setValue(destinationHeadline);
                 databaseReference.child(String.valueOf(entryNumber)).child("Article Position").setValue(articlePosition);
                 databaseReference.child(String.valueOf(entryNumber)).child("Article Timestamp").setValue(articleTS);
                 databaseReference.child(String.valueOf(entryNumber)).child("Article Timespent").setValue(timeSpent);
                 databaseReference.child(String.valueOf(entryNumber)).child("Source Name").setValue(sourceName);
                 databaseReference.child(String.valueOf(entryNumber)).child("Source Position").setValue(sourcePosition);
                 databaseReference.child(String.valueOf(entryNumber)).child("Source Timestamp").setValue(sourceTimestamp);
+                databaseReference.child(String.valueOf(entryNumber)).child("Source Timespent").setValue(ST);
             }
 
             @Override

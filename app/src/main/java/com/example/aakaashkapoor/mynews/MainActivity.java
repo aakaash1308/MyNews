@@ -51,14 +51,11 @@ public class MainActivity extends AppCompatActivity {
         if(user.checkFirstTime())
             createUserInDatabase(user.username);
 
-
-
         // variable instantiation
         final GridView gridView = (GridView) findViewById(R.id.channelsView) ;
         newsChannels = (GridView) findViewById(R.id.channelsView);
         ChannelsGridAdapter gridAdapter = new ChannelsGridAdapter(this);
         newsChannels.setAdapter(gridAdapter);
-
 
         newsChannels.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View image, int position, long id) {
