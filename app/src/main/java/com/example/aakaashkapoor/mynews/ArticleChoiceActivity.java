@@ -36,6 +36,7 @@ public class ArticleChoiceActivity extends AppCompatActivity {
     public static ArrayList<String> articleImages = new ArrayList<String>();
 
     public static String sourceName = "" , headline, body, author,url, articleTimestamp, sourceTimestamp, sourcePosition;
+    public static long sourceTimespent;
     public static String kind;
     public  int  articlePosition;
     Context mcontext;
@@ -49,6 +50,8 @@ public class ArticleChoiceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_choice);
         Date cDate = new Date();
@@ -56,6 +59,7 @@ public class ArticleChoiceActivity extends AppCompatActivity {
 
         User user = new User(this);
 
+        sourceTimespent = System.currentTimeMillis();
         newsArticles = (GridView) findViewById(R.id.articleView);
 
         mcontext = this;
@@ -88,9 +92,8 @@ public class ArticleChoiceActivity extends AppCompatActivity {
                     Date cDate = new Date();
                     articleTimestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss XXX").format(cDate);
                     if(articleImages.size() > position)
-                        url = articleImages.get(position);//editText.getText().toString();
+                        url = articleImages.get(position);
 
-                    // different version of the app what be changed here
                     if (kind.equals("1")) {
                         makeMoreLiberal();
                     }
@@ -103,10 +106,13 @@ public class ArticleChoiceActivity extends AppCompatActivity {
                     intent.putExtra("author", author);
                     intent.putExtra("url", url);
                     intent.putExtra("body", body);
+                    final long currentTIme = System.currentTimeMillis();
+
+                    intent.putExtra("STS", Long.toString(currentTIme - sourceTimespent));
                     intent.putExtra("articleTimestamp", articleTimestamp);
                     intent.putExtra("SP",String.valueOf(sourcePosition));
-                    intent.putExtra("articlePosition", articlePosition);
-                    intent.putExtra("sourceeTimestamp", sourceTimestamp);
+                    intent.putExtra("articlePosition", String.valueOf(articlePosition));
+                    intent.putExtra("sourceTimestamp", sourceTimestamp);
 
                     startActivityForResult(intent, OPEN_NEW_ACTIVITY);
 
@@ -173,10 +179,13 @@ public class ArticleChoiceActivity extends AppCompatActivity {
         User user = new User(this);
 
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://echo-chamber-7e6d4.firebaseio.com/").getReference().child(user.getUsername());
-
-
         DatabaseReference mdatabase = FirebaseDatabase.getInstance("https://echo-chamber-7e6d4.firebaseio.com/").getReference().child(user.getUsername());
 
+        final long currentTIme = System.currentTimeMillis();
+        final Date resultdate = new Date(currentTIme - sourceTimespent);
+        final SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
+
+//
         //gets the entry number
         mdatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -185,6 +194,7 @@ public class ArticleChoiceActivity extends AppCompatActivity {
                 databaseReference.child(String.valueOf(entryNumber)).child("Source Name").setValue(sourceName);
                 databaseReference.child(String.valueOf(entryNumber)).child("Source Position").setValue(sourcePosition+1);
                 databaseReference.child(String.valueOf(entryNumber)).child("Source Timestamp").setValue(sourceTimestamp);
+                databaseReference.child(String.valueOf(entryNumber)).child("Source Timespent").setValue(currentTIme - sourceTimespent);
             }
 
             @Override
