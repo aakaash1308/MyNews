@@ -37,10 +37,13 @@ public class getJsonData extends AsyncTask<String,Void,Void> {
     JSONObject jsonObject;
     ProgressDialog pd;
     Context mContext;
-
+    String sourceName;
+    String sourcePosition;
     // getting the context
-    public getJsonData (Context context){
+    public getJsonData (Context context, String sourceName, String sourcePosition){
         mContext = context;
+        this.sourceName = sourceName;
+        this.sourcePosition = sourcePosition;
     }
 
     @Override
@@ -123,12 +126,10 @@ public class getJsonData extends AsyncTask<String,Void,Void> {
         ArticleChoiceActivity.articleAuthor = articleAuthor;
         ArticleChoiceActivity.articleImages = articleImages;
 
-        Log.i("number of articles here", String.valueOf(articleNames.size()));
-        ArticlesGridAdapter articleAdapter = new ArticlesGridAdapter(mContext, articleNames, articleImages);//, articleNames);
+        ArticlesGridAdapter articleAdapter = new ArticlesGridAdapter(mContext, articleNames, articleImages, sourceName, sourcePosition);//, articleNames);
         ArticleChoiceActivity.newsArticles.setAdapter(articleAdapter);
 
 
-        Log.i("article names: ", "GOT ALL 6 BABY!!!");
         //Log.i("article names: ", ArticleChoiceActivity.articleNames.get(0));
 
 

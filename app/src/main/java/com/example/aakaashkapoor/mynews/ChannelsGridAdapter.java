@@ -39,7 +39,7 @@ public class ChannelsGridAdapter extends BaseAdapter {
     List<Integer> display = new ArrayList<>();
     public ChannelsGridAdapter(Context context) {
         this.context = context;
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 12; i++) {
             display.add(i);
         }
         //shuffling the array for images
@@ -58,7 +58,7 @@ public class ChannelsGridAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 11;
+        return 12;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class ChannelsGridAdapter extends BaseAdapter {
     public String[] getChannelsFromMemory(Context mContext)
     {
         SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
-        String allChannels = prefs.getString("allChannels", "0 c,1 l,2 c,3 l,4 c,5 l,6 c,7 l,8 c,9 l,10 c"); // username will be set to the second argument if it doesn't exist
+        String allChannels = prefs.getString("allChannels", "0 c,1 l,2 c,3 l,4 c,5 l,6 c,7 l,8 c,9 l,10 c,11 l"); // username will be set to the second argument if it doesn't exist
 
         Channels = TextUtils.split(allChannels, ","); // splits the channels into an array
         return Channels;
@@ -169,7 +169,7 @@ public class ChannelsGridAdapter extends BaseAdapter {
                 Channels[position] = display.get(position) + " c"; // ready to update the channels in the local storage
             }
 
-            if(position == 10)  // the last position, now save the channels
+            if(position == 11)  // the last position, now save the channels
             {
                 saveChannelsToMemory(this.context);
                 saveDateToMemory(this.context);

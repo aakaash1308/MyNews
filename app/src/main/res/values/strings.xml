@@ -13,6 +13,7 @@
         <item formatted="false">@drawable/zerohedge</item>
         <item formatted="false">@drawable/theblaze</item>
         <item formatted="false">@drawable/nationalreview</item>
+        <item formatted="false">@drawable/cnsnews</item>
     </integer-array>
 
     <string-array name="conservative_names" formatted="true">
@@ -27,6 +28,7 @@
         <item>Zero\%20Hedge</item>
         <item>The\%20Blaze</item>
         <item>National\%20Review</item>
+        <item>CNS\%20News</item>
     </string-array>
 
 
@@ -42,6 +44,7 @@
         <item>@drawable/dailykos</item>
         <item>@drawable/vox</item>
         <item>@drawable/thenation</item>
+        <item>@drawable/slate</item>
     </integer-array>
 
     <string-array name="liberal_names">
@@ -56,6 +59,7 @@
         <item formatted="false">Daily\%20Kos</item>
         <item formatted="false">Vox</item>
         <item formatted="false">The\%20Nation</item>
+        <item formatted="false">Slate</item>
     </string-array>
 
 

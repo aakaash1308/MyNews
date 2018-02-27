@@ -7,6 +7,7 @@ package com.example.aakaashkapoor.mynews;
 
 import android.content.Context;
 
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -30,14 +31,31 @@ import static com.example.aakaashkapoor.mynews.R.id.imageView;
 public class ArticlesGridAdapter extends BaseAdapter {
 
     private final Context mContext;
+    private final String sourceName;
+    private final String sourcePosition;
     public static ArrayList<String> articleNames = new ArrayList<String>();
     public static ArrayList<String> articleImages = new ArrayList<String>();
 
+
+    private final TypedArray conservative_images;
+    private final TypedArray liberal_images;
+    private final TypedArray conservative_names;
+    private final TypedArray liberal_names;
+
+
+
     // 1
-    public ArticlesGridAdapter(Context context, ArrayList<String> articleNames, ArrayList<String> articleImages) {
+    public ArticlesGridAdapter(Context context, ArrayList<String> articleNames, ArrayList<String> articleImages, String sourceName, String sourcePosition) {
         this.mContext = context;
         this.articleNames = articleNames;
         this.articleImages = articleImages;
+        this.sourceName = sourceName;
+        this.sourcePosition = sourcePosition;
+
+        conservative_images = context.getResources().obtainTypedArray(R.array.conservative_images);
+        liberal_images = context.getResources().obtainTypedArray(R.array.liberal_images);
+        conservative_names = context.getResources().obtainTypedArray(R.array.conservative_names);
+        liberal_names = context.getResources().obtainTypedArray(R.array.liberal_names);
     }
 
     // 2
@@ -75,7 +93,22 @@ public class ArticlesGridAdapter extends BaseAdapter {
 
         final ImageView articleImageView = (ImageView)convertView.findViewById(R.id.article_cover_art);
 
-        articleImageView.setImageResource(R.drawable.cnn);
+        Log.i("TEST sourceName", sourceName );
+        int index = Integer.parseInt(sourcePosition);
+
+        for(int i = 0; i < 12; i++){
+            Log.i("TEST sourceName", sourceName );
+            if(liberal_names.getString(i).equals(sourceName)) {
+                articleImageView.setImageResource(liberal_images.getResourceId(i, -1));
+                break;
+            }
+            Log.i("TEST conservative", conservative_names.getString(i) );
+            if(conservative_names.getString(i).equals(sourceName)) {
+                articleImageView.setImageResource(conservative_images.getResourceId(i, -1));
+                break;
+            }
+        }
+
 
         if(articleImages.size() > position) // checking for any errors
             Picasso.with(this.mContext).load(articleImages.get(position)).into(articleImageView);

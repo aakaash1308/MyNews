@@ -66,16 +66,12 @@ public class ArticleChoiceActivity extends AppCompatActivity {
         Intent intent = getIntent();
         sourceName = intent.getStringExtra(String.valueOf(MainActivity.sourceName));
         sourcePosition = intent.getStringExtra("sourcePosition");
-
         kind = intent.getStringExtra(MainActivity.kind);
-        //TextView textView = (TextView) findViewById(R.id.textView);
-        //textView.setText(message);
 
-
-        getJsonData jsonData = new getJsonData(mcontext);
+        getJsonData jsonData = new getJsonData(mcontext, sourceName, sourcePosition);
         jsonData.execute(sourceName);
 
-        ArticlesGridAdapter articleAdapter = new ArticlesGridAdapter(this, articleNames, articleImages);//, articleNames);
+        ArticlesGridAdapter articleAdapter = new ArticlesGridAdapter(this, articleNames, articleImages, sourceName, sourcePosition);//, articleNames);
         newsArticles.setAdapter(articleAdapter);
 
         newsArticles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
