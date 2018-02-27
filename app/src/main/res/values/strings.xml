@@ -18,7 +18,7 @@
 
     <string-array name="conservative_names" formatted="true">
         <item>Breitbart</item>
-        <item>FoxNews</item>
+        <item>Fox\%20News</item>
         <item>Drudge\%20Report</item>
         <item>Daily\%20Caller</item>
         <item>Washington\%20Times</item>

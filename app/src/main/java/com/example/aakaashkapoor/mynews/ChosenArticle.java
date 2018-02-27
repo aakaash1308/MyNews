@@ -2,9 +2,12 @@ package com.example.aakaashkapoor.mynews;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.SystemClock;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.webkit.WebView;
@@ -38,6 +41,7 @@ public class ChosenArticle extends AppCompatActivity {
     public String sourceTimespent;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +70,9 @@ public class ChosenArticle extends AppCompatActivity {
         textView.setText(destinationAuthor);
 
         textView = (TextView) findViewById(R.id.body);
-        textView.setText(destinationBody);
+
+        String[] body = TextUtils.join("\n",destinationBody.split("\n")).split(" ");
+        textView.setText(TextUtils.join(" ", body));
         textView.setMovementMethod(new ScrollingMovementMethod());
 
         ImageView articleImageView = (ImageView)findViewById(R.id.imageView);
