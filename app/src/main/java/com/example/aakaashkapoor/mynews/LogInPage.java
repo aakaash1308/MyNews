@@ -29,6 +29,7 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
     public int toCheck = -1;
 
     public String introUsername = "this is the first time.";
+    public String username;
 
     public List<String> list;
     @Override
@@ -40,7 +41,7 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
 //        user.setUsername(introUsername);
 
         Log.i(user.getUsername(), "yeah");
-
+        username = user.getUsername();
 
 
         LogInId = (EditText) findViewById(R.id.userID);
@@ -50,12 +51,12 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
         checkExists();
 
 
-        if(!user.getUsername().equals(introUsername))
-        {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            finish();
-            startActivity(intent);
-        }
+//        if(!user.getUsername().equals(introUsername))
+//        {
+//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//            finish();
+//            startActivity(intent);
+//        }
 
         databaseReference =  FirebaseDatabase.getInstance("https://echo-chamber-7e6d4.firebaseio.com/").getReference();
 
@@ -86,18 +87,27 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
 
     }
 
-    public  void checkExists(){
+    public void checkExists(){
 
         DatabaseReference users  =  FirebaseDatabase.getInstance("https://echo-chamber-7e6d4.firebaseio.com/").getReference();
 
         users.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-
+                list.clear();
 
                 for (DataSnapshot child: snapshot.getChildren()) {
                     if(!child.getKey().equalsIgnoreCase("News"))
                         list.add(child.getKey());
+                }
+
+                Log.i("username", username);
+                if(list.contains(username))
+                {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+                    finish();
+                    startActivity(intent);
                 }
             }
 
@@ -108,3 +118,4 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
         });
     }
 }
+
