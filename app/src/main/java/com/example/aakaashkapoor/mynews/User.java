@@ -109,6 +109,9 @@ public class User{
     }
     public void setMoreLiberal() // sets the user to be more liberal based on the biasing
     {
+        // for no biasing
+        if( this.getType() == 2)
+            return;
         SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
         SharedPreferences.Editor editor = prefs.edit();
 
@@ -135,6 +138,9 @@ public class User{
     }
     public void setMoreConservative() // sets the user to be more liberal based on the biasing
     {
+        //for no biasing
+        if( this.getType() == 2)
+            return;
         SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
         SharedPreferences.Editor editor = prefs.edit();
 
@@ -159,7 +165,7 @@ public class User{
             setHowLiberal(this.howLiberal -5); // adding 6 since the bias is now 6
         }
     }
-    public void getType() // gets the type of the user
+    public int getType() // gets the type of the user
     {
         if(this.username.substring(0,3).equals("BOM")) // setting the type
             this.type = 0;
@@ -167,6 +173,7 @@ public class User{
             this.type = 1;
         if(this.username.substring(0,3).equals("NBX")) // setting the type
             this.type = 2;
+        return this.type;
     }
 
 

@@ -138,13 +138,13 @@ public class ArticleChoiceActivity extends AppCompatActivity {
 
     public void makeMoreLiberal(){
         User user = new User(mcontext);
-        user.setHowLiberal(user.gethowLiberal()+1);
+        user.setMoreLiberal();
         //Log.i("howLiberal", String.valueOf(user.gethowLiberal()));
     }
 
     public void makeMoreConservative(){
         User user = new User(mcontext);
-        user.setHowLiberal(user.gethowLiberal()-1);
+        user.setMoreConservative();
         //0-
         // Log.i("howLiberal", String.valueOf(user.gethowLiberal()));
     }
