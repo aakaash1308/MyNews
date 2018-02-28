@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class intermediate extends AppCompatActivity implements View.OnClickListener{
+public class finalIntermediate extends AppCompatActivity implements View.OnClickListener {
 
     public String LogInID;
 
@@ -15,7 +15,7 @@ public class intermediate extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intermediate);
+        setContentView(R.layout.activity_final_intermediate);
         Continue = (Button) findViewById(R.id.Continue);
 
         Continue.setOnClickListener(this);
@@ -23,8 +23,12 @@ public class intermediate extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(getApplicationContext(), intermediate2.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
+        User user = new User(this);
+        user.setDaysPassed(-20);
+
+        finish();
         startActivity(intent);
     }
 }

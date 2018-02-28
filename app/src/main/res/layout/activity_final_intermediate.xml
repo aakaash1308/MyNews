@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.aakaashkapoor.mynews.intermediate"    android:layout_marginLeft="20dp"
+    tools:context="com.example.aakaashkapoor.mynews.finalIntermediate"
+    android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
     android:layout_marginTop="110dp"
     android:layout_marginBottom="20dp"
@@ -21,8 +22,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:text="Most news aggregator algorithms, like the kind used in this app, track your behavior. They then use this information to guide you toward news articles that reflect your own ideological preferences.
-Why is this a problem? "
+            android:text="
+At this point you have a choice: Please press “Reset” to break the echo chamber effect and receive news from an equal number of pro-Democratic and pro-Republican sources.
+\nOr \n
+Please press “Continue” to continue with the suggestions tailored to your prior choices."
             android:textAlignment="center"
 
             android:textSize="20dp"
@@ -38,6 +41,13 @@ Why is this a problem? "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Continue" />
+
+        <Button
+            android:id="@+id/reset"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reset" />
 
 
     </LinearLayout>

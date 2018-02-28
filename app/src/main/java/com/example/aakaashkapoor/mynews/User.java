@@ -25,6 +25,8 @@ public class User{
     Context mContext;
     int eventNum;
     int type; // 0-BOM, 1-BWM, 2-NBX
+    int daysPassed = 0;
+    int numDaysToIntervention = 0;
 
     public User(String username) {
         this.username = username;
@@ -35,6 +37,7 @@ public class User{
         SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
         String username = prefs.getString("username1", "this is the first time."); // username will be set to the second argument if it doesn't exist
         this.howLiberal = prefs.getInt("howLiberal", 50); // username will be set to the second argument if it doesn't exist
+        this.daysPassed = prefs.getInt("daysPassed", 0); //days passed will be set to 0
         this.eventNum = prefs.getInt("eventNum", 0); // username will be set to the second argument if it doesn't exist
 
 //        if(username.equals("this is the first time.")) // check for the first time and create a random username
@@ -77,6 +80,17 @@ public class User{
         editor.commit();
     }
 
+    public int getDaysPassed() {
+        return this.daysPassed;
+    }
+
+    public void setDaysPassed(int daysPassed) {
+        this.daysPassed = daysPassed;
+        SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("daysPassed", daysPassed);
+        editor.commit();
+    }
 
     public void saveDateToMemory(Context mContext) // function that will save the Date today
     {
@@ -105,6 +119,8 @@ public class User{
         if(currentDate.equals(dateInMemory)) // to check if its a new day or not
             return false;
 
+        int temp = getDaysPassed() + 1;
+        this.setDaysPassed(temp);
         return true;
     }
     public void setMoreLiberal() // sets the user to be more liberal based on the biasing
@@ -179,6 +195,9 @@ public class User{
 
     public int gethowLiberal(){ return howLiberal;}
     public void setHowLiberal(int howLiberal) {
+        //for no biasing
+        if( this.getType() == 2)
+            return;
 
         SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
         SharedPreferences.Editor editor = prefs.edit();
