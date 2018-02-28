@@ -76,10 +76,6 @@ public class ChosenArticle extends AppCompatActivity {
 
         ImageView articleImageView = (ImageView)findViewById(R.id.imageView);
         Picasso.with(this).load(destinationUrl).into(articleImageView);
-        //WebView webview = new WebView(this);
-        //setContentView(webview);
-        //webview.loadUrl(destination);
-        //makeEntry(sourceName);
     }
     @Override
     public void onBackPressed() {

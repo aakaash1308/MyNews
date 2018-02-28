@@ -8,13 +8,13 @@ import android.widget.Button;
 
 public class intermediate extends AppCompatActivity implements View.OnClickListener{
 
-    public String LogInID;
-
-    public Button Reset;
     public Button Continue;
+    long timeStarted;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        timeStarted = System.currentTimeMillis();
         setContentView(R.layout.activity_intermediate);
         Continue = (Button) findViewById(R.id.Continue);
 
@@ -23,7 +23,10 @@ public class intermediate extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        long timePassed =  System.currentTimeMillis() - timeStarted;
+        String temp = String.valueOf(timePassed);
         Intent intent = new Intent(getApplicationContext(), intermediate2.class);
+        intent.putExtra("TimeScreen1",timePassed);
         finish();
         startActivity(intent);
     }
