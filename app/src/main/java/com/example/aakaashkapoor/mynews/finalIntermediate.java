@@ -17,18 +17,34 @@ public class finalIntermediate extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_final_intermediate);
         Continue = (Button) findViewById(R.id.Continue);
+        Reset = (Button) findViewById(R.id.reset);
 
         Continue.setOnClickListener(this);
+        Reset.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
-        User user = new User(this);
-        user.setDaysPassed(-20);
+        if( view == Continue){
+            // No change
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            User user = new User(this);
+            user.setDaysPassed(-200);
+            finish();
+            startActivity(intent);
 
-        finish();
-        startActivity(intent);
+        }
+        if( view  == Reset){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+            User user = new User(this);
+            user.setHowLiberal(50);
+            user.setType(2);
+
+            finish();
+            startActivity(intent);
+
+        }
     }
 }

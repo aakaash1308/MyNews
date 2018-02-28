@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
         User user = new User(this); // for checking the user
 
-        if(user.getDaysPassed() >= user.numDaysToIntervention)
+
+        if((user.getType() == 1) && (user.getDaysPassed() >= user.numDaysToIntervention))
         {
             Intent intent = new Intent(getApplicationContext(), intermediate.class);
             finish();

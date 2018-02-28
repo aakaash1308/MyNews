@@ -40,7 +40,6 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
         User user = new User(this);
 //        user.setUsername(introUsername);
 
-        Log.i(user.getUsername(), "yeah");
         username = user.getUsername();
 
 
@@ -101,7 +100,7 @@ public class LogInPage extends AppCompatActivity implements View.OnClickListener
                         list.add(child.getKey());
                 }
 
-                Log.i("username", username);
+                Log.i("username = ", username);
                 if(list.contains(username))
                 {
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);

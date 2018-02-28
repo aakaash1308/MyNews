@@ -24,7 +24,7 @@ public class intermediate extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(getApplicationContext(), intermediate2.class);
-
+        finish();
         startActivity(intent);
     }
 }

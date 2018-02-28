@@ -71,8 +71,7 @@ public class ChosenArticle extends AppCompatActivity {
 
         textView = (TextView) findViewById(R.id.body);
 
-        String[] body = TextUtils.join("\n",destinationBody.split("\n")).split(" ");
-        textView.setText(TextUtils.join(" ", body));
+        textView.setText(destinationBody);
         textView.setMovementMethod(new ScrollingMovementMethod());
 
         ImageView articleImageView = (ImageView)findViewById(R.id.imageView);

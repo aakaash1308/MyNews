@@ -38,21 +38,32 @@ public class User{
         String username = prefs.getString("username1", "this is the first time."); // username will be set to the second argument if it doesn't exist
         this.howLiberal = prefs.getInt("howLiberal", 50); // username will be set to the second argument if it doesn't exist
         this.daysPassed = prefs.getInt("daysPassed", 0); //days passed will be set to 0
+        this.type = prefs.getInt("type", 2); //type is set to
         this.eventNum = prefs.getInt("eventNum", 0); // username will be set to the second argument if it doesn't exist
 
-//        if(username.equals("this is the first time.")) // check for the first time and create a random username
-//        {
+        this.username = username; // setting the correct username
+        if(username.equals("this is the first time.")) // check for the first time and create a random username
+        {
 //            SharedPreferences.Editor editor = prefs.edit();
 //
 //            username = Long.toHexString(Double.doubleToLongBits(Math.random()));
-//            firstTime = 1; // for telling the app that this is the first time
+            this.firstTime = 1; // for telling the app that this is the first time
 //
 //            // saving in the phone
 //            editor.putString("username1", username);
 //            editor.commit();
-//        }
+            Log.i("THIS IS BULLSHIT ", "CARDI B");
 
-        this.username = username; // setting the correct username
+
+        }
+
+
+
+
+
+        Log.i("TEST type", String.valueOf(this.type));
+        Log.i("TEST daysPassed", String.valueOf(daysPassed));
+
     }
 
     public String getUsername() {
@@ -69,6 +80,15 @@ public class User{
 
         editor.putString("username1", username);
         this.username = username;
+        int tempType = 2;
+        if (this.username.substring(0, 3).equals("BOM")) // setting the type
+            tempType = 0;
+        else if (this.username.substring(0, 3).equals("BWM")) // setting the type
+            tempType = 1;
+        if (this.username.substring(0, 3).equals("NBX")) // setting the type
+            tempType = 2;
+
+        setType(tempType);
         editor.commit();
     }
     public void setEventNum(){
@@ -102,7 +122,6 @@ public class User{
 
         SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
         SharedPreferences.Editor editor = prefs.edit();
-        Log.i("Savs channels to memory", currentDate);
         editor.putString("date1", currentDate);
         editor.commit();
     }
@@ -181,14 +200,15 @@ public class User{
             setHowLiberal(this.howLiberal -5); // adding 6 since the bias is now 6
         }
     }
+    public void setType(int type){
+        SharedPreferences prefs = mContext.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE); // This gets the storage in the phone
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("type", type);
+        editor.commit();
+        this.type = type;
+    }
     public int getType() // gets the type of the user
     {
-        if(this.username.substring(0,3).equals("BOM")) // setting the type
-            this.type = 0;
-        else if(this.username.substring(0,3).equals("BMW")) // setting the type
-            this.type = 1;
-        if(this.username.substring(0,3).equals("NBX")) // setting the type
-            this.type = 2;
         return this.type;
     }
 
@@ -208,9 +228,9 @@ public class User{
         if(howLiberal > 95)
             howLiberal = 95;
 
-        Log.i("howLiberal", String.valueOf(howLiberal));
         this.howLiberal = howLiberal;
         editor.commit();
+        Log.i("TEST howLiberal", String.valueOf(howLiberal));
 
     }
 
