@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My News</string>
+    <string name="app_name">Credit News</string>
 
     <integer-array name="conservative_images">
         <item formatted="false">@drawable/breitbart</item>
