@@ -92,7 +92,7 @@ public class ChosenArticle extends AppCompatActivity {
     public void makeEntry(final String sourceName, final long timeSpent, final String ST){
         User user = new User(this);
         final SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
-
+        final int bias = user.gethowLiberal();
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://echo-chamber-7e6d4.firebaseio.com/").getReference().child(user.getUsername());
         Date cDate = new Date();
         String fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss XXX").format(cDate);
@@ -111,6 +111,7 @@ public class ChosenArticle extends AppCompatActivity {
                 databaseReference.child(String.valueOf(entryNumber)).child("Source Position").setValue(sourcePosition);
                 databaseReference.child(String.valueOf(entryNumber)).child("Source Timestamp").setValue(sourceTimestamp);
                 databaseReference.child(String.valueOf(entryNumber)).child("Source Timespent").setValue(ST);
+                databaseReference.child(String.valueOf(entryNumber)).child("User Bias").setValue(bias);
             }
 
             @Override

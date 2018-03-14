@@ -6,30 +6,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.aakaashkapoor.mynews.intermediate2"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginTop="110dp"
-    android:layout_marginBottom="20dp"
+
+    android:background="@drawable/background"
     android:gravity="center">
 
     <LinearLayout
+        android:padding="33sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/author"
+            android:paddingTop="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/work_sans"
             android:layout_marginBottom="12dp"
-            android:text="
-Tailored offers prevent you from being exposed to other ideas and viewpoints which you might disagree with. Researchers say that this forces you into an echo chamber packed only with news articles you agree with and thus eliminating news articles you might disagree with. As a result, you are at the risk of eventually becoming a victim to your own biases.
-What can you do?"
+            android:text="Why is this a problem?"
             android:textAlignment="center"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="#f1f1f1"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
+        <TextView
+            android:layout_marginTop="40sp"
+            android:id="@+id/author"
+            android:background="@drawable/interventionbackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16sp"
+            android:text="These customized offers prevent you from being exposed to ideas and viewpoints which you might disagree with. This lack of diversity may force you to become narrow minded and puts you at the risk of eventually becoming a victim to your own biases."
+            android:textAlignment="center"
             android:textSize="20dp"
-
+android:fontFamily="@font/work_sans"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -37,10 +48,16 @@ What can you do?"
 
         <Button
             android:id="@+id/Continue"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Continue" />
+            android:layout_marginTop="20dp"
+            android:background="@drawable/buttonbackground"
+            android:fontFamily="@font/work_sans"
+            android:paddingLeft="30sp"
+            android:paddingRight="30sp"
+
+            android:text="NEXT"
+            android:textStyle="bold" />
 
 
     </LinearLayout>

@@ -4,40 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.aakaashkapoor.mynews.intermediate"    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginTop="110dp"
-    android:layout_marginBottom="20dp"
+    tools:context="com.example.aakaashkapoor.mynews.intermediate"
+
+    android:background="@drawable/background"
     android:gravity="center">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="33sp">
 
         <TextView
-            android:id="@+id/author"
+            android:paddingTop="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/work_sans"
             android:layout_marginBottom="12dp"
-            android:text="Most news aggregator algorithms, like the kind used in this app, track your behavior. They then use this information to guide you toward news articles that reflect your own ideological preferences.
-Why is this a problem? "
+            android:text="About this App"
             android:textAlignment="center"
-
-            android:textSize="20dp"
-
+            android:textSize="32sp"
             android:textStyle="bold"
+            android:textColor="#f1f1f1"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
+        <TextView
+            android:layout_marginTop="40sp"
+            android:padding="16sp"
+            android:id="@+id/author"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/work_sans"
+            android:layout_marginBottom="12dp"
+            android:text="This app tracks your behavior. It uses this information to guide you toward news articles that reflect your own ideological preferences – liberal or conservative."
+            android:textAlignment="center"
+            android:background="@drawable/interventionbackground"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 
         <Button
             android:id="@+id/Continue"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Continue" />
+            android:layout_marginTop="20dp"
+            android:background="@drawable/buttonbackground"
+            android:fontFamily="@font/work_sans"
+            android:paddingLeft="30sp"
+            android:paddingRight="30sp"
+
+            android:text="NEXT"
+            android:textStyle="bold" />
 
 
     </LinearLayout>

@@ -173,7 +173,7 @@ public class ArticleChoiceActivity extends AppCompatActivity {
     public void makeEntry(final String sourceName)//Integer sourceNumber, Integer type)
     {
         User user = new User(this);
-
+        final int bias = user.gethowLiberal();
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://echo-chamber-7e6d4.firebaseio.com/").getReference().child(user.getUsername());
         DatabaseReference mdatabase = FirebaseDatabase.getInstance("https://echo-chamber-7e6d4.firebaseio.com/").getReference().child(user.getUsername());
 
@@ -191,6 +191,7 @@ public class ArticleChoiceActivity extends AppCompatActivity {
                 databaseReference.child(String.valueOf(entryNumber)).child("Source Position").setValue(sourcePosition+1);
                 databaseReference.child(String.valueOf(entryNumber)).child("Source Timestamp").setValue(sourceTimestamp);
                 databaseReference.child(String.valueOf(entryNumber)).child("Source Timespent").setValue(currentTIme - sourceTimespent);
+                databaseReference.child(String.valueOf(entryNumber)).child("User Bias").setValue(bias);
             }
 
             @Override

@@ -5,50 +5,74 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.aakaashkapoor.mynews.finalIntermediate"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginTop="110dp"
-    android:layout_marginBottom="20dp"
+    android:background="@drawable/background"
     android:gravity="center">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="33sp">
+
+        <TextView
+            android:paddingTop="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/work_sans"
+            android:layout_marginBottom="12dp"
+            android:text="What can You Do?"
+            android:textAlignment="center"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="#f1f1f1"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <TextView
             android:id="@+id/author"
+            android:layout_marginTop="40sp"
+            android:padding="16sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="
-At this point you have a choice: Please press “Reset” to break the echo chamber effect and receive news from an equal number of pro-Democratic and pro-Republican sources.
-\nOr \n
-Please press “Continue” to continue with the suggestions tailored to your prior choices."
+            android:layout_marginBottom="20dp"
+            android:text="In this App you have a choice.
+
+Press “Reset” to break the bias and receive equal number of liberal and conservative sources.
+
+Or
+
+Press “Continue” to continue with the suggestions that fit your views."
             android:textAlignment="center"
 
             android:textSize="20dp"
 
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            android:background="@drawable/interventionbackground"/>
 
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
         <Button
             android:id="@+id/Continue"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Continue" />
+            android:text="Continue"
+            android:layout_marginRight="20sp"
+            android:background="@drawable/buttonbackground"/>
 
         <Button
             android:id="@+id/reset"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reset" />
-
+            android:text="Reset"
+            android:layout_marginLeft="20sp"
+            android:background="@drawable/buttonbackground"
+            />
+        </LinearLayout>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
