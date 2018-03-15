@@ -39,6 +39,7 @@ public class ChosenArticle extends AppCompatActivity {
     public String sourcePosition="";
     public String sourceTimestamp = "";
     public String sourceTimespent;
+    TextView dateShown;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -48,10 +49,13 @@ public class ChosenArticle extends AppCompatActivity {
         setContentView(R.layout.activity_chosen_article);
 
 
-
+        Date cDate = new Date();
+        String todaysDate = new SimpleDateFormat("dd MMM YYYY").format(cDate);
         timeElapsed = System.currentTimeMillis();
         Intent intent = getIntent();
 
+        dateShown = (TextView) findViewById(R.id.date);
+        dateShown.setText(todaysDate);
         sourceTimespent = intent.getStringExtra("STS");
         destinationHeadline = intent.getStringExtra("headline");
         sourceName = intent.getStringExtra("sourceName");

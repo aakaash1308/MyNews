@@ -126,7 +126,7 @@ public class getJsonData extends AsyncTask<String,Void,Void> {
         ArticleChoiceActivity.articleAuthor = articleAuthor;
         ArticleChoiceActivity.articleImages = articleImages;
 
-        ArticlesGridAdapter articleAdapter = new ArticlesGridAdapter(mContext, articleNames, articleImages, sourceName, sourcePosition);//, articleNames);
+        ArticlesGridAdapter articleAdapter = new ArticlesGridAdapter(mContext, articleNames, articleImages, sourceName, sourcePosition, articleAuthor);//, articleNames);
         ArticleChoiceActivity.newsArticles.setAdapter(articleAdapter);
 
 

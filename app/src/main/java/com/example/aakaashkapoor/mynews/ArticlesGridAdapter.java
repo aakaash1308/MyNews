@@ -35,6 +35,7 @@ public class ArticlesGridAdapter extends BaseAdapter {
     private final String sourcePosition;
     public static ArrayList<String> articleNames = new ArrayList<String>();
     public static ArrayList<String> articleImages = new ArrayList<String>();
+    public static ArrayList<String> articleAuthors = new ArrayList<String>();
 
 
     private final TypedArray conservative_images;
@@ -45,9 +46,10 @@ public class ArticlesGridAdapter extends BaseAdapter {
 
 
     // 1
-    public ArticlesGridAdapter(Context context, ArrayList<String> articleNames, ArrayList<String> articleImages, String sourceName, String sourcePosition) {
+    public ArticlesGridAdapter(Context context, ArrayList<String> articleNames, ArrayList<String> articleImages, String sourceName, String sourcePosition,ArrayList<String> articleAuthors ) {
         this.mContext = context;
         this.articleNames = articleNames;
+        this.articleAuthors = articleAuthors;
         this.articleImages = articleImages;
         this.sourceName = sourceName;
         this.sourcePosition = sourcePosition;
@@ -89,6 +91,8 @@ public class ArticlesGridAdapter extends BaseAdapter {
 
         final TextView nameTextView = (TextView)convertView.findViewById(R.id.article_headline);
         nameTextView.setText(articleNames.get(position));
+        final TextView authorTextView = (TextView)convertView.findViewById(R.id.article_author);
+        authorTextView.setText(articleAuthors.get(position));
         //-- nameTextView.setText(articleNames.get(position));
 
         final ImageView articleImageView = (ImageView)convertView.findViewById(R.id.article_cover_art);
