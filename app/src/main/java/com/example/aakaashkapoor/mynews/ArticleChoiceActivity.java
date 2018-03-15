@@ -43,6 +43,7 @@ public class ArticleChoiceActivity extends AppCompatActivity {
 
     public int entryNumber = 0;
     public int SourceHasBeenClicked = 0;
+    public int inBackground = 0;
 
     public static GridView newsArticles;
     public static final int OPEN_NEW_ACTIVITY = 123;
@@ -110,6 +111,7 @@ public class ArticleChoiceActivity extends AppCompatActivity {
                     intent.putExtra("articlePosition", String.valueOf(articlePosition));
                     intent.putExtra("sourceTimestamp", sourceTimestamp);
 
+                    inBackground = -1;
                     startActivityForResult(intent, OPEN_NEW_ACTIVITY);
 
                 }
@@ -203,5 +205,26 @@ public class ArticleChoiceActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        inBackground += 1;
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //do something
+
+        if(inBackground == 1) {
+            inBackground = 0;
+            Intent intent = new Intent(getApplicationContext(), LogInPage.class);
+
+            finish();
+            startActivity(intent);
+        }
     }
 }

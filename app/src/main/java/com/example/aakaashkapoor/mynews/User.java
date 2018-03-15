@@ -26,7 +26,7 @@ public class User{
     int eventNum;
     int type; // 0-BOM, 1-BWM, 2-NBX
     int daysPassed = 0;
-    int numDaysToIntervention = 0;
+    int numDaysToIntervention = 2;
 
     public User(String username) {
         this.username = username;

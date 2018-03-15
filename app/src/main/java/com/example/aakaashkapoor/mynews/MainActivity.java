@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     static String kind;
     Context mcontext;
     public String LogInID = "";
+    public int inBackground = 0;
     //public static TextView articles;
 
 
@@ -80,12 +81,12 @@ public class MainActivity extends AppCompatActivity {
                     makeMoreConservative();
                 }
                 sourceName = sourceName.substring(0,sourceName.length()-1);
-                Toast.makeText(getApplicationContext(),sourceName , Toast.LENGTH_SHORT).show();
 
                 intent.putExtra(sourceName,sourceName);
                 intent.putExtra(kind, kind);
                 intent.putExtra("sourcePosition", String.valueOf(sourcePosition));
                 //finish();
+                inBackground = -1;
                 startActivity(intent);
             }});
 
@@ -111,4 +112,25 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         finish();
     }
+
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//
+//        inBackground += 1;
+//
+//    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        //do something
+//
+//        if(inBackground == 1) {
+//            inBackground = 0;
+//            Intent intent = new Intent(getApplicationContext(), LogInPage.class);
+//
+//            finish();
+//            startActivity(intent);
+//        }
+//    }
 }
