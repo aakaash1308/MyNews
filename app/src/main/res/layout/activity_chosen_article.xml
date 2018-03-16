@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="12dp"
-    android:layout_marginRight="12dp"
-    android:layout_marginTop="20dp"
-    android:layout_marginBottom="20dp"
     tools:context="com.example.aakaashkapoor.mynews.ChosenArticle">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:paddingTop="20sp"
         android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,6 +19,14 @@
         android:orientation="vertical"
         >
 
+        <ImageView
+            android:id="@+id/imageView"
+            app:srcCompat="@drawable/cnn"
+
+            android:layout_marginBottom="12dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+        />
         <TextView
             android:id="@+id/headline"
             android:layout_width="match_parent"
@@ -27,58 +34,65 @@
 
             android:layout_marginBottom="12dp"
 
-            android:fontFamily="serif-monospace"
+            tools:fontFamily="@font/gilda_display"
             android:text="TextView"
 
             android:textAlignment="center"
-
-            android:textSize="24sp"
+            android:textColor="#000"
+            android:textSize="28sp"
             android:textStyle="bold"
             android:typeface="serif"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"/>
 
-        <ImageView
-            android:id="@+id/imageView"
-            app:srcCompat="@drawable/cnn"
 
-            android:layout_marginBottom="12dp"
-
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            app:layout_constraintTop_toBottomOf="@+id/headline" />
-
+            android:orientation="horizontal"
+            android:paddingTop="20sp"
+            android:paddingBottom="20sp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp">
         <TextView
             android:id="@+id/author"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:text="AUTHOR"
 
 
-            android:layout_marginBottom="12dp"
+            android:textSize="15sp"
+            android:layout_marginBottom="15dp"
 
-            android:textAlignment="center"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"/>
+            />
 
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aaj Tak"
+                android:gravity="end"
+
+                android:textSize="15sp"
+                android:layout_marginBottom="15dp"
+/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/body"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            android:fontFamily="monospace"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:fontFamily="@font/work_sans"
+            android:gravity="start"
             android:text="Body"
-            android:textAlignment="center"
+            android:textAlignment="viewStart"
+            android:textColor="#000"
+            android:textSize="20sp"
 
-
-
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/author"/>
+            tools:fontFamily="@font/work_sans" />
 
 
 

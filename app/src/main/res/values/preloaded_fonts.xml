@@ -2,5 +2,7 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/work_sans</item>
+        <item>@font/gilda_display</item>
+        <item>@font/play</item>
     </array>
 </resources>

@@ -72,7 +72,7 @@ public class ArticleChoiceActivity extends AppCompatActivity {
         getJsonData jsonData = new getJsonData(mcontext, sourceName, sourcePosition);
         jsonData.execute(sourceName);
 
-        ArticlesGridAdapter articleAdapter = new ArticlesGridAdapter(this, articleNames, articleImages, sourceName, sourcePosition);//, articleNames);
+        ArticlesGridAdapter articleAdapter = new ArticlesGridAdapter(this, articleNames, articleImages, sourceName, sourcePosition, articleAuthor);//, articleNames);
         newsArticles.setAdapter(articleAdapter);
 
         newsArticles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
